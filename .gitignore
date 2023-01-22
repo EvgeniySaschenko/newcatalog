@@ -1,0 +1,8 @@
+node_modules
+
+service--admin
+service--api
+service--certbot
+service--db-main
+service--proxy
+service--site

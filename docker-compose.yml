@@ -1,0 +1,109 @@
+version: "3.9"
+
+services:
+  # site
+  # service--site:
+  #   container_name: ${PROJECT_NAME}__${SITE__SERVICE}
+  #   build: 
+  #     context: ./${SITE__SERVICE}
+  #     args:
+  #       - WORKDIR_BASE=${WORKDIR_BASE}
+  #       - SERVICE=${SITE__SERVICE}
+  #   env_file:
+  #     - .env-${MODE_RUN}
+  #   command: ${SITE__COMAND}
+  #   stdin_open: true
+  #   tty: true
+  #   volumes:
+  #     - ./${SITE__SERVICE}:${WORKDIR_BASE}/${SITE__SERVICE}
+  #     - ./${SITE__SERVICE}/node_modules:${WORKDIR_BASE}/${SITE__SERVICE}/node_modules/
+
+  # admin
+  service--admin:
+    container_name: ${PROJECT_NAME}__${ADMIN__SERVICE}
+    build: 
+      context: ./${ADMIN__SERVICE}
+      args:
+        - WORKDIR_BASE=${WORKDIR_BASE}
+        - SERVICE=${ADMIN__SERVICE}
+    env_file:
+      - .env-${MODE_RUN}
+    command: ${ADMIN__COMAND}
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./${ADMIN__SERVICE}:${WORKDIR_BASE}/${ADMIN__SERVICE}
+      - ./${ADMIN__SERVICE}/node_modules:${WORKDIR_BASE}/${ADMIN__SERVICE}/node_modules/
+
+  # #api
+  service--api:
+    container_name: ${PROJECT_NAME}__${API__SERVICE}
+    build: 
+      context: ./${API__SERVICE}
+      args:
+        - WORKDIR_BASE=${WORKDIR_BASE}
+        - SERVICE=${API__SERVICE}
+    command: ${API__COMAND}
+    env_file:
+      - .env-${MODE_RUN}
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./${API__SERVICE}:${WORKDIR_BASE}/${API__SERVICE}
+      - ./${API__SERVICE}/node_modules:${WORKDIR_BASE}/${API__SERVICE}/node_modules/
+    depends_on:
+      - ${DB_MAIN__SERVICE}
+
+  # db - posgres
+  service--db-main:
+    container_name: ${PROJECT_NAME}__${DB_MAIN__SERVICE}
+    build: 
+      context: ./${DB_MAIN__SERVICE}
+      args:
+        - WORKDIR_BASE=${WORKDIR_BASE}
+        - SERVICE=${DB_MAIN__SERVICE}
+    environment:
+      POSTGRES_DB: ${DB_MAIN__NAME}
+      POSTGRES_PASSWORD: ${DB_MAIN__PASSWORD}
+    # ports:
+      # - 54320:5432
+    stdin_open: true
+    tty: true
+    volumes:
+      # database
+      - /var/lib/postgresql/data
+      # "docker-entrypoint-initdb.d" - creates a table in the database and performs some actions 1 time during initialization (see container documentation)
+      - ./${DB_MAIN__SERVICE}/init:/docker-entrypoint-initdb.d
+
+  # proxy - nginx
+  service--proxy:
+    container_name: ${PROJECT_NAME}__${PROXY__SERVICE}
+    build:
+      context: ./${PROXY__SERVICE}
+      args:
+        - WORKDIR_BASE=${WORKDIR_BASE}
+        - SERVICE=${PROXY__SERVICE}
+        - SITE__DOMAIN=${SITE__DOMAIN}
+    env_file:
+      - .env-${MODE_RUN}
+    ports:
+      - 443:443
+      - 80:80
+    volumes:
+      # "default.conf.template" - is to be able to pass environment variables to config (see container documentation)
+      - ./${PROXY__SERVICE}/nginx.conf:/etc/nginx/templates/default.conf.template
+    depends_on:
+      - ${ADMIN__SERVICE}
+
+  # service--certbot:
+  #   container_name: ${PROJECT_NAME}__${CERTBOT__SERVICE}
+  #   build:
+  #     context: ./${CERTBOT__SERVICE}
+  #     args:
+  #       - WORKDIR_BASE=${WORKDIR_BASE}
+  #       - SERVICE=${CERTBOT__SERVICE}
+  #       - SITE__DOMAIN=${SITE__DOMAIN}
+  #   env_file:
+  #     - .env.${MODE_RUN}
+  #   volumes:
+  #     - ./${CERTBOT__SERVICE}:${WORKDIR_BASE}/${CERTBOT__SERVICE}
