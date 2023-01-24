@@ -67,12 +67,12 @@ if [ $mode == "node-modules" ]; then
     docker compose -f docker-compose.yml -f docker-node-modules.yml  --env-file ./.env-${ENV_RUN} start
 
     # ADMIN
-    # funDeleteNodeModules $ADMIN__SERVICE
-    # funCopyNodeModules $ADMIN__SERVICE
+    funDeleteNodeModules $ADMIN__SERVICE
+    funCopyNodeModules $ADMIN__SERVICE
 
     # API
     funDeleteNodeModules $API__SERVICE
-    # funCopyNodeModules $API__SERVICE
+    funCopyNodeModules $API__SERVICE
 
     # SITE
     # funDeleteNodeModules $API__SITE
