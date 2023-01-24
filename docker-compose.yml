@@ -73,8 +73,7 @@ services:
       # database
       - /var/lib/postgresql/data
       # "docker-entrypoint-initdb.d" - creates a table in the database and performs some actions 1 time during initialization (see container documentation)
-      - ./${DB_MAIN__SERVICE}/utils:${WORKDIR_BASE}/${DB_MAIN__SERVICE}/utils
-      - ./${DB_MAIN__SERVICE}/utils:/docker-entrypoint-initdb.d
+      - ./${DB_MAIN__SERVICE}/init:/docker-entrypoint-initdb.d
 
   # proxy - nginx
   service--proxy:
