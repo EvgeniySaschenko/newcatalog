@@ -1,0 +1,17 @@
+version: "3.9"
+
+services:
+  # site
+  # service--site:
+  #   volumes:
+  #     - ./${SITE__SERVICE}/src:${WORKDIR_BASE}/${SITE__SERVICE}/src
+
+  # admin
+  service--admin:
+    volumes: 
+      - ./${ADMIN__SERVICE}/src:${WORKDIR_BASE}/${ADMIN__SERVICE}/src
+
+  # #api
+  service--api:
+    volumes:
+      - ./${API__SERVICE}/public:${WORKDIR_BASE}/${API__SERVICE}/public

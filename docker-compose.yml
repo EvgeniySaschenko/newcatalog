@@ -10,7 +10,7 @@ services:
   #       - WORKDIR_BASE=${WORKDIR_BASE}
   #       - SERVICE=${SITE__SERVICE}
   #   env_file:
-  #     - .env-${MODE_RUN}
+  #     - .env-${ENV_RUN}
   #   command: ${SITE__COMAND}
   #   stdin_open: true
   #   tty: true
@@ -27,13 +27,13 @@ services:
         - WORKDIR_BASE=${WORKDIR_BASE}
         - SERVICE=${ADMIN__SERVICE}
     env_file:
-      - .env-${MODE_RUN}
+      - .env-${ENV_RUN}
     command: ${ADMIN__COMAND}
     stdin_open: true
     tty: true
-    volumes:
+    volumes: 
       - ./${ADMIN__SERVICE}:${WORKDIR_BASE}/${ADMIN__SERVICE}
-      - ./${ADMIN__SERVICE}/node_modules:${WORKDIR_BASE}/${ADMIN__SERVICE}/node_modules/
+      - ./${ADMIN__SERVICE}/node_modules:${WORKDIR_BASE}/${ADMIN__SERVICE}/node_modules
 
   # #api
   service--api:
@@ -45,7 +45,7 @@ services:
         - SERVICE=${API__SERVICE}
     command: ${API__COMAND}
     env_file:
-      - .env-${MODE_RUN}
+      - .env-${ENV_RUN}
     stdin_open: true
     tty: true
     volumes:
@@ -73,7 +73,8 @@ services:
       # database
       - /var/lib/postgresql/data
       # "docker-entrypoint-initdb.d" - creates a table in the database and performs some actions 1 time during initialization (see container documentation)
-      - ./${DB_MAIN__SERVICE}/init:/docker-entrypoint-initdb.d
+      - ./${DB_MAIN__SERVICE}/utils:${WORKDIR_BASE}/${DB_MAIN__SERVICE}/utils
+      - ./${DB_MAIN__SERVICE}/utils:/docker-entrypoint-initdb.d
 
   # proxy - nginx
   service--proxy:
@@ -85,7 +86,7 @@ services:
         - SERVICE=${PROXY__SERVICE}
         - SITE__DOMAIN=${SITE__DOMAIN}
     env_file:
-      - .env-${MODE_RUN}
+      - .env-${ENV_RUN}
     ports:
       - 443:443
       - 80:80
@@ -104,6 +105,6 @@ services:
   #       - SERVICE=${CERTBOT__SERVICE}
   #       - SITE__DOMAIN=${SITE__DOMAIN}
   #   env_file:
-  #     - .env.${MODE_RUN}
+  #     - .env.${ENV_RUN}
   #   volumes:
   #     - ./${CERTBOT__SERVICE}:${WORKDIR_BASE}/${CERTBOT__SERVICE}

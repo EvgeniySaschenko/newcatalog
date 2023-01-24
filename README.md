@@ -3,15 +3,7 @@
 ## Run containers
 
 ```
-docker compose --env-file ./.env-dev build
-```
-
-```
-docker compose --env-file ./.env-dev up
-```
-
-```
-docker compose --env-file ./.env-dev-build up
+bash run.sh dev up
 ```
 
 
@@ -20,13 +12,13 @@ docker compose --env-file ./.env-dev-build up
 1. Start container
 
 ```
-docker compose --env-file ./.env-dev start
+bash run.sh dev start
 ```
 
 2. Go to the command line Docker container
 
 ```
-docker exec -it newcatalog--db-main sh
+docker exec -it newcatalog__service--db-main sh
 ```
 
 3. Change user to "postgres"
@@ -57,7 +49,7 @@ pg_dump -h localhost -d newcatalog -U postgres -W > /var/lib/postgresql/data/db-
 schema empty
 
 ```
-docker cp -a newcatalog--db-main:/var/lib/postgresql/data/db-empty.sql ./db-main/db-empty.sql
+docker cp -a newcatalog__service--db-main:/var/lib/postgresql/data/db-empty.sql ./service--db-main/db-empty.sql
 ```
 
 - or 
@@ -65,10 +57,13 @@ docker cp -a newcatalog--db-main:/var/lib/postgresql/data/db-empty.sql ./db-main
 schema data
 
 ```
-docker cp -a newcatalog--db-main:/var/lib/postgresql/data/db-data.sql ./db-main/db-data.sql
+docker cp -a newcatalog__service--db-main:/var/lib/postgresql/data/db-data.sql ./service--db-main/db-data.sql
 ```
 
 ## DB
 ```
 docker compose --env-file ./.env-dev down --volumes
 ```
+
+
+docker cp newcatalog__service--admin:/app/newcatalog/service--admin/node_modules ./service--admin
