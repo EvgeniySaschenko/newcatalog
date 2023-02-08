@@ -67,3 +67,7 @@ docker compose --env-file ./.env-dev down --volumes
 
 
 docker cp newcatalog__service--admin:/app/newcatalog/service--admin/node_modules ./service--admin
+
+
+
+docker rm -v newcatalog__service--db-main
