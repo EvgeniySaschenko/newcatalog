@@ -53,6 +53,7 @@ services:
       - ./${API__SERVICE}/node_modules:${WORKDIR_BASE}/${API__SERVICE}/node_modules/
     depends_on:
       - ${DB_MAIN__SERVICE}
+      - ${DB_TEMPORARY__SERVICE}
 
   # db - posgres
   service--db-main:
@@ -66,7 +67,7 @@ services:
       POSTGRES_DB: ${DB_MAIN__NAME}
       POSTGRES_PASSWORD: ${DB_MAIN__PASSWORD}
     ports:
-      - 54320:5432
+      - ${DB_MAIN__PORT_EXTERNAL}:${DB_MAIN__PORT_INTERNAL}
     stdin_open: true
     tty: true
     volumes:
@@ -74,6 +75,14 @@ services:
       - /var/lib/postgresql/data
       # "docker-entrypoint-initdb.d" - creates a table in the database and performs some actions 1 time during initialization (see container documentation)
       - ./${DB_MAIN__SERVICE}/init:/docker-entrypoint-initdb.d
+
+  # db - redis
+  service--db-temporary:
+    container_name: ${PROJECT_NAME}__${DB_TEMPORARY__SERVICE}
+    build: 
+      context: ./${DB_TEMPORARY__SERVICE}
+    ports:
+      - ${DB_TEMPORARY__PORT_EXTERNAL}:${DB_TEMPORARY__PORT_INTERNAL}
 
   # proxy - nginx
   service--proxy:

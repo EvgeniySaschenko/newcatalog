@@ -18,6 +18,11 @@
 	url = git@github.com:EvgeniySaschenko/newcatalog__service--db-main.git
 	ignore = all
 
+[submodule "service--db-temporary"]
+	path = service--db-temporary
+	url = git@github.com:EvgeniySaschenko/newcatalog__service--db-temporary.git
+	ignore = all
+
 [submodule "service--proxy"]
 	path = service--proxy
 	url = git@github.com:EvgeniySaschenko/newcatalog__service--proxy.git

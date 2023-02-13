@@ -4,6 +4,7 @@ service--admin
 service--api
 service--certbot
 service--db-main
+service--db-temporary
 service--proxy
 service--site
 tmp
