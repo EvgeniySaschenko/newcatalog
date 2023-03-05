@@ -2,21 +2,23 @@ version: "3.9"
 
 services:
   # site
-  # service--site:
-  #   container_name: ${PROJECT_NAME}__${SITE__SERVICE}
-  #   build: 
-  #     context: ./${SITE__SERVICE}
-  #     args:
-  #       - WORKDIR_BASE=${WORKDIR_BASE}
-  #       - SERVICE=${SITE__SERVICE}
-  #   env_file:
-  #     - .env-${ENV_RUN}
-  #   command: ${SITE__COMAND}
-  #   stdin_open: true
-  #   tty: true
-  #   volumes:
-  #     - ./${SITE__SERVICE}:${WORKDIR_BASE}/${SITE__SERVICE}
-  #     - ./${SITE__SERVICE}/node_modules:${WORKDIR_BASE}/${SITE__SERVICE}/node_modules/
+  service--site:
+    container_name: ${PROJECT_NAME}__${SITE__SERVICE}
+    build: 
+      context: ./${SITE__SERVICE}
+      args:
+        - WORKDIR_BASE=${WORKDIR_BASE}
+        - SERVICE=${SITE__SERVICE}
+    env_file:
+      - .env-${ENV_RUN}
+    command: ${SITE__COMAND}
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./${SITE__SERVICE}:${WORKDIR_BASE}/${SITE__SERVICE}
+      - ./${SITE__SERVICE}/node_modules:${WORKDIR_BASE}/${SITE__SERVICE}/node_modules/
+    depends_on:
+      - ${DB_TEMPORARY__SERVICE}
 
   # admin
   service--admin:
@@ -34,6 +36,8 @@ services:
     volumes: 
       - ./${ADMIN__SERVICE}:${WORKDIR_BASE}/${ADMIN__SERVICE}
       - ./${ADMIN__SERVICE}/node_modules:${WORKDIR_BASE}/${ADMIN__SERVICE}/node_modules
+    depends_on:
+      - ${API__SERVICE}
 
   # #api
   service--api:
