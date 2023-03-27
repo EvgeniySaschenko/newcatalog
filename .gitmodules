@@ -1,34 +1,34 @@
 [submodule "service--admin"]
 	path = service--admin
 	url = git@github.com:EvgeniySaschenko/newcatalog__service--admin.git
-	ignore = all
+  ignore = all
 
 [submodule "service--api"]
 	path = service--api
 	url = git@github.com:EvgeniySaschenko/newcatalog__service--api.git
-	ignore = all
+  ignore = all
 
-[submodule "service--certbot"]
-	path = service--certbot
-	url = git@github.com:EvgeniySaschenko/newcatalog__service--certbot.git
-	ignore = all
+[submodule "service--site"]
+	path = service--site
+	url = git@github.com:EvgeniySaschenko/newcatalog__service--site.git
+  ignore = all
 
 [submodule "service--db-main"]
-	path = service--db-main
-	url = git@github.com:EvgeniySaschenko/newcatalog__service--db-main.git
-	ignore = all
+  path = service--db-main
+  url = git@github.com:EvgeniySaschenko/newcatalog__service--db-main.git
+  ignore = all
 
 [submodule "service--db-temporary"]
-	path = service--db-temporary
-	url = git@github.com:EvgeniySaschenko/newcatalog__service--db-temporary.git
-	ignore = all
+  path = service--db-temporary
+  url = git@github.com:EvgeniySaschenko/newcatalog__service--db-temporary.git
+  ignore = all
 
 [submodule "service--proxy"]
-	path = service--proxy
-	url = git@github.com:EvgeniySaschenko/newcatalog__service--proxy.git
-	ignore = all
+  path = service--proxy
+  url = git@github.com:EvgeniySaschenko/newcatalog__service--proxy.git
+  ignore = all
 
-# [submodule "service--site"]
-# 	path = service--site
-# 	url = git@github.com:EvgeniySaschenko/newcatalog__service--site.git
-# 	ignore = all
+[submodule "service--certbot"]
+  path = service--certbot
+  url = git@github.com:EvgeniySaschenko/newcatalog__service--certbot.git
+  ignore = all
