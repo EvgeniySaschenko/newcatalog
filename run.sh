@@ -5,12 +5,13 @@ source ./.env-$env
 
 #build containers
 function funBuildContainers {
+  echo '--> Build containers - start'
   local result=$(docker compose --env-file ./.env-${env} build) && local isBuild=true
   echo "$result"
   if [ "$isBuild" != true ]; then
     exit
   fi
-  echo '--> Build containers'
+  echo '--> Build containers - end'
 }
 
 # delete local node_modules
@@ -63,8 +64,7 @@ fi
 
 # Copy node_modules what would work "EsLint", TypeScript, etc.
 if [ $mode == "node-modules" ]; then
-
-    docker compose -f docker-compose.yml -f docker-node-modules.yml  --env-file ./.env-${ENV_RUN} start
+    docker compose -f docker-node-modules.yml  --env-file ./.env-${ENV_RUN} start
 
     # ADMIN
     funDeleteNodeModules $ADMIN__SERVICE
@@ -75,10 +75,10 @@ if [ $mode == "node-modules" ]; then
     funCopyNodeModules $API__SERVICE
 
     # SITE
-    # funDeleteNodeModules $API__SITE
-    # funCopyNodeModules $API__SITE
+    funDeleteNodeModules $SITE__SERVICE
+    funCopyNodeModules $SITE__SERVICE
 
-    docker compose -f docker-compose.yml -f docker-node-modules.yml  --env-file ./.env-${ENV_RUN} stop
+    docker compose -f docker-node-modules.yml  --env-file ./.env-${ENV_RUN} stop
 fi
 
 # Run containers: up / start / stop

@@ -1,17 +1,29 @@
 version: "3.9"
 
 services:
+  # #api
+  service--api:
+    container_name: ${PROJECT_NAME}__${API__SERVICE}
+    build: 
+      context: ./${API__SERVICE}
+      args:
+        - WORKDIR_BASE=${WORKDIR_BASE}
+        - SERVICE=${API__SERVICE}
+
   # site
-  # service--site:
-  #   volumes:
-  #     - ./${SITE__SERVICE}/src:${WORKDIR_BASE}/${SITE__SERVICE}/src
+  service--site:
+    container_name: ${PROJECT_NAME}__${SITE__SERVICE}
+    build: 
+      context: ./${SITE__SERVICE}
+      args:
+        - WORKDIR_BASE=${WORKDIR_BASE}
+        - SERVICE=${SITE__SERVICE}
 
   # admin
   service--admin:
-    volumes: 
-      - ./${ADMIN__SERVICE}/src:${WORKDIR_BASE}/${ADMIN__SERVICE}/src
-
-  # #api
-  service--api:
-    volumes:
-      - ./${API__SERVICE}/public:${WORKDIR_BASE}/${API__SERVICE}/public
+    container_name: ${PROJECT_NAME}__${ADMIN__SERVICE}
+    build: 
+      context: ./${ADMIN__SERVICE}
+      args:
+        - WORKDIR_BASE=${WORKDIR_BASE}
+        - SERVICE=${ADMIN__SERVICE}
