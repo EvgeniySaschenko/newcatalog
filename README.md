@@ -43,6 +43,10 @@ schema data
 pg_dump -h localhost -d newcatalog -U postgres -W > /var/lib/postgresql/data/db-data.sql
 ```
 
+```
+pg_dump -h localhost -d nc_translations -U postgres -W > /var/lib/postgresql/data/db-data-translations.sql
+```
+
 5. Go to the command line of the local computer and copy the desired scheme (db-data.sql, db-empty.sql) to the local computer
 
 
@@ -58,6 +62,11 @@ schema data
 
 ```
 docker cp -a newcatalog__service--db-main:/var/lib/postgresql/data/db-data.sql ./service--db-main/db-data.sql
+```
+
+
+```
+docker cp -a newcatalog__service--db-main:/var/lib/postgresql/data/db-data-translations.sql ./service--db-main/db-data-translations.sql
 ```
 
 ## DB
