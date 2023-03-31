@@ -55,6 +55,9 @@ services:
     volumes:
       - ./${API__SERVICE}:${WORKDIR_BASE}/${API__SERVICE}
       - ./${API__SERVICE}/node_modules:${WORKDIR_BASE}/${API__SERVICE}/node_modules/
+      # For parse function $t()
+      - ./${ADMIN__SERVICE}/src:${WORKDIR_BASE}/${API__SERVICE}/symlinks/${ADMIN__SERVICE}/
+      - ./${SITE__SERVICE}:${WORKDIR_BASE}/${API__SERVICE}/symlinks/${SITE__SERVICE}/
     depends_on:
       - ${DB_MAIN__SERVICE}
       - ${DB_TEMPORARY__SERVICE}
