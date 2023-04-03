@@ -80,3 +80,14 @@ docker cp newcatalog__service--admin:/app/newcatalog/service--admin/node_modules
 
 
 docker rm -v newcatalog__service--db-main
+
+## translations
+```
+In order for the regular expression to correctly extract the text of the translation function $t("text text text"), eslint uses the 'function-paren-newline' rule, this rule prevents the argument from wrapping to the next line.
+```
+```
+In this case, the 'function-paren-newline' rule may conflict with prettier "printWidth" - because of this, the regex may not find all translation functions "$t".
+```
+```
+To see eslint errors, you need to run "npm run lint" locally on your computer, I plan to change this later.
+```
