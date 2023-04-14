@@ -32,7 +32,7 @@ su - postgres;
 schema empty
 
 ```
-pg_dump -h localhost -d newcatalog --schema-only -U postgres -W > /var/lib/postgresql/data/db-empty.sql
+pg_dump -h localhost -d newcatalog --schema-only -U postgres -W > /var/lib/postgresql/data/1.db-empty.sql
 ```
 
 - or 
@@ -40,11 +40,11 @@ pg_dump -h localhost -d newcatalog --schema-only -U postgres -W > /var/lib/postg
 schema data
 
 ```
-pg_dump -h localhost -d newcatalog -U postgres -W > /var/lib/postgresql/data/db-data.sql
+pg_dump -h localhost -d newcatalog -U postgres -W > /var/lib/postgresql/data/1.db-data.sql
 ```
 
 ```
-pg_dump -h localhost -d nc_translations -U postgres -W > /var/lib/postgresql/data/db-data-translations.sql
+pg_dump -d newcatalog -t translations > /var/lib/postgresql/data/3.translations-data.sql
 ```
 
 5. Go to the command line of the local computer and copy the desired scheme (db-data.sql, db-empty.sql) to the local computer
@@ -53,7 +53,7 @@ pg_dump -h localhost -d nc_translations -U postgres -W > /var/lib/postgresql/dat
 schema empty
 
 ```
-docker cp -a newcatalog__service--db-main:/var/lib/postgresql/data/db-empty.sql ./service--db-main/db-empty.sql
+docker cp -a newcatalog__service--db-main:/var/lib/postgresql/data/1.db-empty.sql ./service--db-main/1.db-empty.sql
 ```
 
 - or 
@@ -61,12 +61,12 @@ docker cp -a newcatalog__service--db-main:/var/lib/postgresql/data/db-empty.sql 
 schema data
 
 ```
-docker cp -a newcatalog__service--db-main:/var/lib/postgresql/data/db-data.sql ./service--db-main/db-data.sql
+docker cp -a newcatalog__service--db-main:/var/lib/postgresql/data/1.db-data.sql ./service--db-main/1.db-data.sql
 ```
 
 
 ```
-docker cp -a newcatalog__service--db-main:/var/lib/postgresql/data/db-data-translations.sql ./service--db-main/db-data-translations.sql
+docker cp -a newcatalog__service--db-main:/var/lib/postgresql/data/3.translations-data.sql ./service--db-main/3.translations-data.sql
 ```
 
 ## DB
