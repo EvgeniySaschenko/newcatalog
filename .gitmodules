@@ -34,6 +34,6 @@
   ignore = all
 
 [submodule "service--files"]
-  path = service--files
-  url = git@github.com:EvgeniySaschenko/newcatalog__service--files.git
+	path = service--files
+	url = git@github.com:EvgeniySaschenko/newcatalog__service--files.git
   ignore = all
