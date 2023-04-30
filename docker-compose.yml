@@ -75,8 +75,8 @@ services:
         - WORKDIR_BASE=${WORKDIR_BASE}
         - SERVICE=${DB_MAIN__SERVICE}
     environment:
-      POSTGRES_DB: ${DB_MAIN__NAME}
-      POSTGRES_PASSWORD: ${DB_MAIN__PASSWORD}
+      POSTGRES_DB: ${DB_MAIN__NAME_DB}
+      POSTGRES_PASSWORD: ${DB_MAIN__PASSWORD_DB}
     ports:
       - ${DB_MAIN__PORT_EXTERNAL}:${DB_MAIN__PORT_INTERNAL}
     stdin_open: true
