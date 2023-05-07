@@ -62,6 +62,8 @@ services:
       - ./${SITE__SERVICE}:${WORKDIR_BASE}/${API__SERVICE}/symlinks/${SITE__SERVICE}/
       # files
       - ./${FILES__SERVICE}:${WORKDIR_BASE}/${API__SERVICE}/symlinks/${FILES__SERVICE}/
+      # db main
+      - ./${DB_MAIN__SERVICE}:${WORKDIR_BASE}/${API__SERVICE}/symlinks/${DB_MAIN__SERVICE}/
     depends_on:
       - ${DB_MAIN__SERVICE}
       - ${DB_TEMPORARY__SERVICE}
@@ -77,6 +79,16 @@ services:
     environment:
       POSTGRES_DB: ${DB_MAIN__NAME_DB}
       POSTGRES_PASSWORD: ${DB_MAIN__PASSWORD_DB}
+      WORKDIR_BASE: ${WORKDIR_BASE}
+      DB_MAIN__NAME_DB: ${DB_MAIN__NAME_DB}
+      DB_MAIN__USER_DB: ${DB_MAIN__USER_DB}
+      DB_MAIN__PASSWORD_DB: ${DB_MAIN__PASSWORD_DB}
+      DB_MAIN__PORT_INTERNAL: ${DB_MAIN__PORT_INTERNAL}
+      DB_MAIN__SERVICE: ${DB_MAIN__SERVICE}
+      DB_MAIN__BACKUP_PATHS: ${DB_MAIN__BACKUP_PATHS}
+      DB_MAIN__BACKUP_REPORT_PATH: ${DB_MAIN__BACKUP_REPORT_PATH}
+      DB_MAIN__BACKUP_MESSAGING_FILE: ${DB_MAIN__BACKUP_MESSAGING_FILE}
+      API__SERVICE: ${API__SERVICE}
     ports:
       - ${DB_MAIN__PORT_EXTERNAL}:${DB_MAIN__PORT_INTERNAL}
     stdin_open: true
@@ -86,6 +98,9 @@ services:
       - /var/lib/postgresql/data
       # "docker-entrypoint-initdb.d" - creates a table in the database and performs some actions 1 time during initialization (see container documentation)
       - ./${DB_MAIN__SERVICE}/init:/docker-entrypoint-initdb.d
+       # Creates a backup
+      - ./${DB_MAIN__SERVICE}/server.js:${WORKDIR_BASE}/${DB_MAIN__SERVICE}/server.js
+      - ./${DB_MAIN__SERVICE}/${DB_MAIN__BACKUP_FOLDER}:${WORKDIR_BASE}/${DB_MAIN__SERVICE}/${DB_MAIN__BACKUP_FOLDER}
 
   # db - redis
   service--db-temporary:
