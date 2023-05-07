@@ -42,19 +42,6 @@ function funRunContainers {
   docker compose --env-file ./.env-${ENV_RUN} ${mode}
 }
 
-# docker exec --detach -it newcatalog__service--db-main sh
-
-# function funCreateDataBaseDump {
-#   local container=${PROJECT_NAME}__${DB_MAIN__SERVICE}
-#   local dirDocker=${WORKDIR_BASE}/${DB_MAIN__SERVICE}
-#   local dirLocal=./${DB_MAIN__SERVICE}/tmp
-#   docker exec  -it $container sh -c "${WORKDIR_BASE}/${DB_MAIN__SERVICE}/utils/create-dupm-db.sh"
-
-#   mkdir -p $dirLocal
-#   docker cp -a $container:$dirDocker/db-data259.sql $dirLocal/db-data259.sql
-#   docker cp -a $container:$dirDocker/db-empty259.sql $dirLocal/db-empty259.sql
-# }
-
 ####################################################################
 
 # Build containers
@@ -86,6 +73,8 @@ if [ $mode == "up" ] || [ $mode == "start" ] || [ $mode == "stop" ]; then
    funRunContainers
 fi
 
-# if [ $mode == "db-dump" ]; then
-#    funCreateDataBaseDump
-# fi
+# Run a script that creates a database backup 
+if [ $mode == "start" ]; then
+  # docker exec -it newcatalog__service--db-main node server.js
+  docker exec -it ${PROJECT_NAME}__${DB_MAIN__SERVICE} node server.js
+fi
