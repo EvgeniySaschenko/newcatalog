@@ -100,7 +100,7 @@ services:
       - ./${DB_MAIN__SERVICE}/init:/docker-entrypoint-initdb.d
        # Creates a backup
       - ./${DB_MAIN__SERVICE}/server.js:${WORKDIR_BASE}/${DB_MAIN__SERVICE}/server.js
-      - ./${DB_MAIN__SERVICE}/${DB_MAIN__BACKUP_FOLDER}:${WORKDIR_BASE}/${DB_MAIN__SERVICE}/${DB_MAIN__BACKUP_FOLDER}
+      - ./${DB_MAIN__SERVICE}/${DB_MAIN__BACKUP_DIR}:${WORKDIR_BASE}/${DB_MAIN__SERVICE}/${DB_MAIN__BACKUP_DIR}
 
   # db - redis
   service--db-temporary:
@@ -124,7 +124,6 @@ services:
     ports:
       - 443:443
       - 80:80
-      - "24678:24678"
     volumes:
       # "default.conf.template" - is to be able to pass environment variables to config (see container documentation)
       - ./${PROXY__SERVICE}/nginx.conf:/etc/nginx/templates/default.conf.template
@@ -132,6 +131,8 @@ services:
       - ./${FILES__SERVICE}:${PROXY__FILES_STORAGE}
     depends_on:
       - ${ADMIN__SERVICE}
+      - ${SITE__SERVICE}
+      - ${API__SERVICE}
       - ${FILES__SERVICE}
 
   # files
