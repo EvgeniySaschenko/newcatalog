@@ -64,6 +64,8 @@ services:
       - ./${FILES__SERVICE}:${WORKDIR_BASE}/${API__SERVICE}/symlinks/${FILES__SERVICE}/
       # db main
       - ./${DB_MAIN__SERVICE}:${WORKDIR_BASE}/${API__SERVICE}/symlinks/${DB_MAIN__SERVICE}/
+      # proxy
+      - ./${PROXY__SERVICE}:${WORKDIR_BASE}/${API__SERVICE}/symlinks/${PROXY__SERVICE}/
     depends_on:
       - ${DB_MAIN__SERVICE}
       - ${DB_TEMPORARY__SERVICE}
@@ -129,6 +131,7 @@ services:
       - ./${PROXY__SERVICE}/nginx.conf:/etc/nginx/templates/default.conf.template
       # files
       - ./${FILES__SERVICE}:${PROXY__FILES_STORAGE}
+      - ./${PROXY__SERVICE}:${WORKDIR_BASE}/${PROXY__SERVICE}
     depends_on:
       - ${ADMIN__SERVICE}
       - ${SITE__SERVICE}
@@ -144,15 +147,16 @@ services:
         - WORKDIR_BASE=${WORKDIR_BASE}
         - SERVICE=${FILES__SERVICE}
 
-  # service--certbot:
-  #   container_name: ${PROJECT_NAME}__${CERTBOT__SERVICE}
-  #   build:
-  #     context: ./${CERTBOT__SERVICE}
-  #     args:
-  #       - WORKDIR_BASE=${WORKDIR_BASE}
-  #       - SERVICE=${CERTBOT__SERVICE}
-  #       - SITE__DOMAIN=${SITE__DOMAIN}
-  #   env_file:
-  #     - .env.${ENV_RUN}
-  #   volumes:
-  #     - ./${CERTBOT__SERVICE}:${WORKDIR_BASE}/${CERTBOT__SERVICE}
+  # certbot
+  service--certbot:
+    container_name: ${PROJECT_NAME}__${CERTBOT__SERVICE}
+    build:
+      context: ./${CERTBOT__SERVICE}
+      args:
+        - WORKDIR_BASE=${WORKDIR_BASE}
+        - SERVICE=${CERTBOT__SERVICE}
+        - SITE__DOMAIN=${SITE__DOMAIN}
+    env_file:
+      - .env-${ENV_RUN}
+    volumes:
+      - ./${CERTBOT__SERVICE}:${WORKDIR_BASE}/${CERTBOT__SERVICE}
