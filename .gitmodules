@@ -28,11 +28,6 @@
   url = git@github.com:EvgeniySaschenko/newcatalog__service--proxy.git
   ignore = all
 
-[submodule "service--certbot"]
-  path = service--certbot
-  url = git@github.com:EvgeniySaschenko/newcatalog__service--certbot.git
-  ignore = all
-
 [submodule "service--files"]
 	path = service--files
 	url = git@github.com:EvgeniySaschenko/newcatalog__service--files.git
