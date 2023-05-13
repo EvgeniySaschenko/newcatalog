@@ -68,7 +68,7 @@ docker cp -a newcatalog__service--db-main:/var/lib/postgresql/data/1.db-data.sql
 ```
 docker cp -a newcatalog__service--db-main:/var/lib/postgresql/data/3.translations-data.sql ./service--db-main/3.translations-data.sql
 ```
-
+docker cp -a newcatalog__service--proxy:/etc/ssl/ ./tmp
 ## DB
 ```
 docker compose --env-file ./.env-dev down --volumes
@@ -91,7 +91,3 @@ In this case, the 'function-paren-newline' rule may conflict with prettier "prin
 ```
 To see eslint errors, you need to run "npm run lint" locally on your computer, I plan to change this later.
 ```
-
-
-docker rm newcatalog__service--api
-docker rmi newcatalog-service--api
