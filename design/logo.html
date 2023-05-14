@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logo</title>
+    <link href="styles.css" rel="stylesheet">
+    <style type="text/css">
+        @font-face {
+            font-family: "My Custom Font";
+            src: url(http://www.example.org/mycustomfont.ttf) format("truetype");
+        }
+        p.customfont { 
+            font-family: "My Custom Font", Verdana, Tahoma;
+        }
+        </style>
+</head>
+<body>
+    <div class="canvas">
+        <!-- newcatalog icon -->
+        <div class="canvas__row">
+            <div class="canvas__descr">newcatalog: favicon / preloader / default image</div>
+            <div class="icon">#</div>
+        </div>
+
+        <!-- newcatalog  logo -->
+        <div class="canvas__row">
+            <div class="canvas__descr">newcatalog: logo</div>
+            <div class="logo-newcatalog">
+                <div class="logo-newcatalog__wrapper">
+                    <div class="logo-newcatalog__new">
+                        new
+                    </div>
+                    <div class="logo-newcatalog__catalog">
+                        Catalog
+                    </div>
+                    <div class="logo-newcatalog__parentheses">
+                        <div class="logo-newcatalog__parentheses-left">(</div>
+                        <div class="logo-newcatalog__parentheses-data">
+                            <div class="logo-newcatalog__parentheses-icon icon">#</div>
+                        </div>
+                        <div class="logo-newcatalog__parentheses-right">)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- instance icon -->
+        <div class="canvas__row">
+            <div class="canvas__descr">instance: favicon / preloader / default image</div>
+            <div class="icon-instance icon">#</div>
+        </div>
+
+        <!-- instance logo -->
+        <div class="canvas__row">
+            <div class="canvas__descr">instance: logo</div>
+            <div class="logo-instance">
+                <div class="icon icon-instance">#</div>
+                <span class="logo-instance__text">.instance</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
