@@ -2,7 +2,7 @@
   --app-font-familly-1: Monserat;
   --app-font-familly-2: Poppins;
   --app-color-primary: #5a448d;
-  --app-color-primary-light: #6b5799;
+  --app-color-primary-light: #705ba0;
   
 }
 
@@ -49,7 +49,7 @@ body {
   text-transform: uppercase;
 }
 
-
+/* icon */
 .icon {
   font-family: var(--app-font-familly-1);
   font-weight: 700;
@@ -66,9 +66,8 @@ body {
   line-height: 1;
 }
 
-
-
-.logo-second {
+/* logo-newcatalog */
+.logo-newcatalog {
   font-family: var(--app-font-familly-2);
   font-weight: 700;
   display: inline-flex;
@@ -79,65 +78,55 @@ body {
   border-radius: 10px;
 }
 
-.logo-second__wrapper {
+.logo-newcatalog__wrapper {
   display: inline-flex;
   align-items: center;
 }
 
-.logo-second__new {
+.logo-newcatalog__new {
   color: #fa3e05;
   margin-right: 3px;
   font-weight: 600;
 }
 
-.logo-second__catalog {
+.logo-newcatalog__catalog {
   color: #ffba08;
 }
 
-.logo-second__parentheses {
+.logo-newcatalog__parentheses {
   color: #ffffff;
   display: flex;
   align-items: center;
 }
 
-.logo-second__parentheses-left {
+.logo-newcatalog__parentheses-left {
   padding-right: 3px;
 }
 
-.logo-second__parentheses-right {
+.logo-newcatalog__parentheses-right {
   padding-left: 3px;
 }
 
-.logo-second__parentheses-data {
+.logo-newcatalog__parentheses-data {
   display: flex;
   flex-direction: column;
 }
 
-.logo-second__parentheses-net {
-  text-align: center;
-  font-size: 16px;
-  font-family: var(--app-font-familly-1);
-  font-weight: 700;
-  text-transform: uppercase;
-  margin-bottom: 3px;
-  margin-top: -20px;
+/* icon-instance */
+.icon-instance {
+  background-color: var(--app-color-primary-light);
 }
 
-
-.logo-main {
+/* logo-instance  */
+.logo-instance {
   display: inline-flex;
   align-items: flex-end;
 }
 
-.logo-main .icon {
-  background-color: var(--app-color-primary-light);
-}
-
-.logo-main__text {
+.logo-instance__text {
   margin-left: 5px;
   font-size: 16px;
   text-transform: uppercase;
   color: #ffffff;
   font-family: var(--app-font-familly-1);
-  text-shadow: var(--app-color-primary) 2px 0 0px, var(--app-color-primary) 0 2px 0px, var(--app-color-primary) -2px 0 0px, var(--app-color-primary) 0 -2px 0px;
 }
