@@ -1,5 +1,13 @@
 # NEWCATALOG
 
+
+## Init
+
+1. git clone --recurse-submodules https://github.com/EvgeniySaschenko/newcatalog.git
+2. bash run.sh prod init
+3. bash run.sh prod stop
+4. bash run.sh dev up
+
 ## Run containers
 
 ```
