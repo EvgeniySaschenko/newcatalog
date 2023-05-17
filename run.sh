@@ -3,27 +3,31 @@ mode=$2
 
 source ./.env-$env
 
-# delete local node_modules
-function funDeleteNodeModules {
-  local path_node_modules="./$1/node_modules"
-  if [ -d $path_node_modules ]; then
-    local result=$(rm -rf -R $path_node_modules) && local isDelete=true
+# delete local dir
+# $1 - sevice dir
+# $2 - target dir
+function funDeleteRir {
+  local path_dir="./$1/$2"
+  if [ -d $path_dir ]; then
+    local result=$(rm -rf -R $path_dir) && local isDelete=true
     echo "$result"
     if [ "$isDelete" != true ]; then
       exit
     fi
-    echo '--> Delete node_modules' "$1" 'local'
+    echo '--> Delete service:' "$1", dir: "$2" - 'local'
   fi
 }
 
-# copy to local node_modules
-function funCopyNodeModules {
-  local result=$(docker cp -a "${PROJECT_NAME}__$1:${WORKDIR_BASE}/$1/node_modules" "./$1") && local isCopy=true
+# copy to local dir
+# $1 - sevice dir
+# $2 - target dir
+function funCopyDir {
+  local result=$(docker cp -a "${PROJECT_NAME}__$1:${WORKDIR_BASE}/$1/$2" "./$1") && local isCopy=true
   echo "$result"
   if [ "$isCopy" != true ]; then
     exit
   fi
-  echo '--> Copy node_modules' "$1" 'local'
+  echo '--> Copy service:' "$1",  dir: "$2" - 'local'
 }
 
 # Init
@@ -35,22 +39,23 @@ function funInit {
   local result1=$(docker compose -f docker-node-modules.yml --env-file ./.env-${env} up) && local isBuild1=true
   echo "$result1"
   if [ "$isBuild1" != true ]; then
+    docker compose -f docker-node-modules.yml --env-file ./.env-${env} stop
     exit
   fi
 
   # 2. node_modules are copied from the docker to the local computer, this is necessary for "EsLint", TypeScript, etc. to work.
 
   # ADMIN
-  funDeleteNodeModules $ADMIN__SERVICE
-  funCopyNodeModules $ADMIN__SERVICE
+  funDeleteRir $ADMIN__SERVICE "node_modules"
+  funCopyDir $ADMIN__SERVICE "node_modules"
 
   # API
-  funDeleteNodeModules $API__SERVICE
-  funCopyNodeModules $API__SERVICE
+  funDeleteRir $API__SERVICE "node_modules"
+  funCopyDir $API__SERVICE "node_modules"
 
   # SITE
-  funDeleteNodeModules $SITE__SERVICE
-  funCopyNodeModules $SITE__SERVICE
+  funDeleteRir $SITE__SERVICE "node_modules"
+  funCopyDir $SITE__SERVICE "node_modules"
 
   docker compose -f docker-node-modules.yml --env-file ./.env-${env} stop
 
@@ -63,6 +68,22 @@ function funInit {
   fi
 }
 
+# Build
+function funBuild {
+  echo '--> Build - start'
+  docker compose -f docker-build.yml --env-file ./.env-${env} up
+
+  # ADMIN
+  funDeleteRir $ADMIN__SERVICE "dist"
+  funCopyDir $ADMIN__SERVICE "dist"
+
+  # SITE
+  funDeleteRir $SITE__SERVICE ".output"
+  funCopyDir $SITE__SERVICE ".output"
+
+  docker compose -f docker-build.yml --env-file ./.env-${env} stop
+}
+
 # run containers
 function funRunContainers {
   docker compose --env-file ./.env-${ENV_RUN} ${mode}
@@ -73,6 +94,11 @@ function funRunContainers {
 # Init
 if [ $mode == "init" ]; then
     funInit
+fi
+
+# Build
+if [ $mode == "build" ]; then
+    funBuild
 fi
 
 # Run containers: up / start / stop
