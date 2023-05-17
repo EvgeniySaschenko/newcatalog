@@ -20,6 +20,7 @@ services:
       - ./${SITE__SERVICE}/node_modules:${WORKDIR_BASE}/${SITE__SERVICE}/node_modules/
     depends_on:
       - ${DB_TEMPORARY__SERVICE}
+    restart: always
 
   # admin
   service--admin:
@@ -40,6 +41,7 @@ services:
       - ./${ADMIN__SERVICE}/node_modules:${WORKDIR_BASE}/${ADMIN__SERVICE}/node_modules
     depends_on:
       - ${API__SERVICE}
+    restart: always
 
   # #api
   service--api:
@@ -69,6 +71,7 @@ services:
     depends_on:
       - ${DB_MAIN__SERVICE}
       - ${DB_TEMPORARY__SERVICE}
+    restart: always
 
   # db - posgres
   service--db-main:
@@ -103,6 +106,7 @@ services:
        # Creates a backup
       - ./${DB_MAIN__SERVICE}/server.js:${WORKDIR_BASE}/${DB_MAIN__SERVICE}/server.js
       - ./${DB_MAIN__SERVICE}/${DB_MAIN__BACKUP_DIR}:${WORKDIR_BASE}/${DB_MAIN__SERVICE}/${DB_MAIN__BACKUP_DIR}
+    restart: always
 
   # db - redis
   service--db-temporary:
@@ -111,6 +115,7 @@ services:
       context: ./${DB_TEMPORARY__SERVICE}
     ports:
       - ${DB_TEMPORARY__PORT_EXTERNAL}:${DB_TEMPORARY__PORT_INTERNAL}
+    restart: always
 
   # proxy - nginx
   service--proxy:
@@ -137,6 +142,7 @@ services:
       - ${SITE__SERVICE}
       - ${API__SERVICE}
       - ${FILES__SERVICE}
+    restart: always
 
   # files
   service--files:
@@ -146,3 +152,4 @@ services:
       args:
         - WORKDIR_BASE=${WORKDIR_BASE}
         - SERVICE=${FILES__SERVICE}
+    restart: always
