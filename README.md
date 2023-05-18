@@ -14,8 +14,8 @@
 1. git clone --recurse-submodules https://github.com/{YOUR_REPOSITORY}.git
 2. cd {YOUR_REPOSITORY}
 3. bash run.sh prod init
-4. bash run.sh prod stop
-5. bash run.sh prod start
+### Prod 2
+1. bash run.sh prod start
 
 ## Run containers
 

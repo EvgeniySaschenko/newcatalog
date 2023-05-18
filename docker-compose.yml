@@ -38,7 +38,7 @@ services:
     volumes: 
       - ./${ADMIN__SERVICE}:${WORKDIR_BASE}/${ADMIN__SERVICE}
       # node_modules
-      - ./${ADMIN__SERVICE}/node_modules:${WORKDIR_BASE}/${ADMIN__SERVICE}/node_modules
+      - ./${ADMIN__SERVICE}/node_modules:${WORKDIR_BASE}/${ADMIN__SERVICE}/node_modules/
     depends_on:
       - ${API__SERVICE}
     restart: on-failure:5
