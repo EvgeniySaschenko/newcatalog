@@ -1,3 +1,4 @@
 node_modules
 fix.txt
-tmp
+tmp/**/*
+!tmp/.gitkeep
