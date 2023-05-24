@@ -68,7 +68,7 @@ new Catalog(#);
 <a href="https://www.docker.com/" target="_blank">
     <img src="https://evgeniysaschenko.github.io/newcatalog/tools/docker.png" align="center" height="50">
 </a>
-<a href="https://www.docker.com/" target="_blank">
+<a href="https://www.postgresql.org/" target="_blank">
     <img src="https://evgeniysaschenko.github.io/newcatalog/tools/postgres.png" align="center" height="50">
 </a>
 
