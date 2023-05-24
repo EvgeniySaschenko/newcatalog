@@ -1,7 +1,7 @@
 
 
 <div align="center">
-<img src="https://evgeniysaschenko.github.io/newcatalog/logo-bg.png">
+<img src="https://evgeniysaschenko.github.io/newcatalog/logo-bg.png?v=1">
 </div>
 
 ---
@@ -11,6 +11,7 @@
 <b>NEWCATALOG</b> is a content management system (CMS) that allows you to create catalogs / ratings of websites.
 
 <b>Demo admin panel:</b> https://demo-admin.newcatalog.net
+
 <b>My website:</b> https://newcatalog.net
 
 <b>Functional:</b>
@@ -35,41 +36,41 @@ new Catalog(#);
 
 <div align="center">
 <a href="https://vuejs.org/" target="_blank">
-    <img src="https://evgeniysaschenko.github.io/newcatalog/tools/vue.png" align="center" height="50">
+    <img src="https://evgeniysaschenko.github.io/newcatalog/tools/vue.png?v=1" align="center" height="50">
 </a>
 &nbsp;
 <a href="https://pugjs.org/" target="_blank">
-    <img src="https://evgeniysaschenko.github.io/newcatalog/tools/pug.png" align="center" height="50">
+    <img src="https://evgeniysaschenko.github.io/newcatalog/tools/pug.png?v=1" align="center" height="50">
 </a>
 &nbsp;
 <a href="https://element-plus.org/" target="_blank">
-    <img src="https://evgeniysaschenko.github.io/newcatalog/tools/elements-plus.png" align="center" height="50">
+    <img src="https://evgeniysaschenko.github.io/newcatalog/tools/elements-plus.png?v=1" align="center" height="50">
 </a>
 &nbsp;
 <a href="https://nuxt.com/" target="_blank">
-    <img src="https://evgeniysaschenko.github.io/newcatalog/tools/nuxt.png" align="center" height="50">
+    <img src="https://evgeniysaschenko.github.io/newcatalog/tools/nuxt.png?v=1" align="center" height="50">
 </a>
 &nbsp;
 <a href="https://www.typescriptlang.org/" target="_blank">
-    <img src="https://evgeniysaschenko.github.io/newcatalog/tools/typescript.png" align="center" height="50">
+    <img src="https://evgeniysaschenko.github.io/newcatalog/tools/typescript.png?v=1" align="center" height="50">
 </a>
 &nbsp;
 <a href="https://nginx.org/en/" target="_blank">
-    <img src="https://evgeniysaschenko.github.io/newcatalog/tools/nginx.png" align="center" height="50">
+    <img src="https://evgeniysaschenko.github.io/newcatalog/tools/nginx.png?v=1" align="center" height="50">
 </a>
 &nbsp;
 <a href="https://redis.io/" target="_blank">
-    <img src="https://evgeniysaschenko.github.io/newcatalog/tools/redis.png" align="center" height="50">
+    <img src="https://evgeniysaschenko.github.io/newcatalog/tools/redis.png?v=1" align="center" height="50">
 </a>
 &nbsp;
 <a href="https://nodejs.org/en" target="_blank">
-    <img src="https://evgeniysaschenko.github.io/newcatalog/tools/nodejs.png" align="center" height="50">
+    <img src="https://evgeniysaschenko.github.io/newcatalog/tools/nodejs.png?v=1" align="center" height="50">
 </a>
 <a href="https://www.docker.com/" target="_blank">
-    <img src="https://evgeniysaschenko.github.io/newcatalog/tools/docker.png" align="center" height="50">
+    <img src="https://evgeniysaschenko.github.io/newcatalog/tools/docker.png?v=1" align="center" height="50">
 </a>
 <a href="https://www.postgresql.org/" target="_blank">
-    <img src="https://evgeniysaschenko.github.io/newcatalog/tools/postgres.png" align="center" height="50">
+    <img src="https://evgeniysaschenko.github.io/newcatalog/tools/postgres.png?v=1" align="center" height="50">
 </a>
 
 </div>
