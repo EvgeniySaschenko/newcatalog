@@ -1,7 +1,79 @@
-# NEWCATALOG
 
 
-## Init
+<div align="center">
+<img src="https://evgeniysaschenko.github.io/newcatalog/logo-bg.png">
+</div>
+
+---
+
+## About
+
+<b>NEWCATALOG</b> is a content management system (CMS) that allows you to create catalogs / ratings of websites.
+
+<b>Demo admin panel:</b> https://demo-admin.newcatalog.net
+<b>My website:</b> https://newcatalog.net
+
+<b>Functional:</b>
+
+- Creating sections and collections of sites in these sections
+- Create screenshots of websites
+- The site logo can be created in the browser (cut from the screenshot)
+- You can add new languages through the browser interface
+- You can change the appearance of the website (logos, colors)
+- You can add your own scripts / styles / banners
+- It is possible to make a backup
+- You can install your own SSL certificates
+
+<b>What is shown on the logo?</b>
+
+In some programming languages, the <b>"new"</b> operator is used to create an instance of a class using a constructor class, <b>"Catalog"</b> is a constructor class for creating catalogs, <b>"#"</b> - data references are passed in parentheses.
+
+```js
+new Catalog(#);
+```
+<b>Tools</b> 
+
+<div align="center">
+<a href="https://vuejs.org/" target="_blank">
+    <img src="https://evgeniysaschenko.github.io/newcatalog/tools/vue.png" align="center" height="50">
+</a>
+&nbsp;
+<a href="https://pugjs.org/" target="_blank">
+    <img src="https://evgeniysaschenko.github.io/newcatalog/tools/pug.png" align="center" height="50">
+</a>
+&nbsp;
+<a href="https://element-plus.org/" target="_blank">
+    <img src="https://evgeniysaschenko.github.io/newcatalog/tools/elements-plus.png" align="center" height="50">
+</a>
+&nbsp;
+<a href="https://nuxt.com/" target="_blank">
+    <img src="https://evgeniysaschenko.github.io/newcatalog/tools/nuxt.png" align="center" height="50">
+</a>
+&nbsp;
+<a href="https://www.typescriptlang.org/" target="_blank">
+    <img src="https://evgeniysaschenko.github.io/newcatalog/tools/typescript.png" align="center" height="50">
+</a>
+&nbsp;
+<a href="https://nginx.org/en/" target="_blank">
+    <img src="https://evgeniysaschenko.github.io/newcatalog/tools/nginx.png" align="center" height="50">
+</a>
+&nbsp;
+<a href="https://redis.io/" target="_blank">
+    <img src="https://evgeniysaschenko.github.io/newcatalog/tools/redis.png" align="center" height="50">
+</a>
+&nbsp;
+<a href="https://nodejs.org/en" target="_blank">
+    <img src="https://evgeniysaschenko.github.io/newcatalog/tools/nodejs.png" align="center" height="50">
+</a>
+<a href="https://www.docker.com/" target="_blank">
+    <img src="https://evgeniysaschenko.github.io/newcatalog/tools/docker.png" align="center" height="50">
+</a>
+<a href="https://www.docker.com/" target="_blank">
+    <img src="https://evgeniysaschenko.github.io/newcatalog/tools/postgres.png" align="center" height="50">
+</a>
+
+</div>
+
 
 ### Dev
 1. git clone --recurse-submodules https://github.com/EvgeniySaschenko/newcatalog.git
