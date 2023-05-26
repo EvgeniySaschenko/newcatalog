@@ -1,14 +1,24 @@
-
-
 <div align="center">
-<img src="https://evgeniysaschenko.github.io/newcatalog/logo-bg.png?v=1">
+<a href="https://github.com/EvgeniySaschenko/newcatalog">
+    <img src="https://evgeniysaschenko.github.io/newcatalog/logo-bg.png?v=2">
+</a>
 </div>
 
----
+<br>
 
-## About
+<div align="center">
+    <a href="#description"><b>Description</b></a> |
+    <a href="#install"><b>Install</b></a> |
+    <a href="#development"><b>Development</b></a> |
+    <a href="#other-commands"><b>Other commands</b></a>
+</div>
 
+-----------------------------------------------------------------------------------------------------------------
+
+## Description <a name="description"></a>
 <b>NEWCATALOG</b> is a content management system (CMS) that allows you to create catalogs / ratings of websites.
+
+> ❗️ This is not yet a stable version of the CMS, it will change and may contain critical bugs. I plan to gradually refactor and add new functionality.
 
 <b>Demo admin panel:</b> https://demo-admin.newcatalog.net
 
@@ -35,150 +45,172 @@ new Catalog(#);
 <b>Tools</b> 
 
 <div align="center">
-<a href="https://vuejs.org/" target="_blank">
-    <img src="https://evgeniysaschenko.github.io/newcatalog/tools/vue.png?v=1" align="center" height="50">
-</a>
-&nbsp;
-<a href="https://pugjs.org/" target="_blank">
-    <img src="https://evgeniysaschenko.github.io/newcatalog/tools/pug.png?v=1" align="center" height="50">
-</a>
-&nbsp;
-<a href="https://element-plus.org/" target="_blank">
-    <img src="https://evgeniysaschenko.github.io/newcatalog/tools/elements-plus.png?v=1" align="center" height="50">
-</a>
-&nbsp;
-<a href="https://nuxt.com/" target="_blank">
-    <img src="https://evgeniysaschenko.github.io/newcatalog/tools/nuxt.png?v=1" align="center" height="50">
-</a>
-&nbsp;
-<a href="https://www.typescriptlang.org/" target="_blank">
-    <img src="https://evgeniysaschenko.github.io/newcatalog/tools/typescript.png?v=1" align="center" height="50">
-</a>
-&nbsp;
-<a href="https://nginx.org/en/" target="_blank">
-    <img src="https://evgeniysaschenko.github.io/newcatalog/tools/nginx.png?v=1" align="center" height="50">
-</a>
-&nbsp;
-<a href="https://redis.io/" target="_blank">
-    <img src="https://evgeniysaschenko.github.io/newcatalog/tools/redis.png?v=1" align="center" height="50">
-</a>
-&nbsp;
-<a href="https://nodejs.org/en" target="_blank">
-    <img src="https://evgeniysaschenko.github.io/newcatalog/tools/nodejs.png?v=1" align="center" height="50">
-</a>
-<a href="https://www.docker.com/" target="_blank">
-    <img src="https://evgeniysaschenko.github.io/newcatalog/tools/docker.png?v=1" align="center" height="50">
-</a>
-<a href="https://www.postgresql.org/" target="_blank">
-    <img src="https://evgeniysaschenko.github.io/newcatalog/tools/postgres.png?v=1" align="center" height="50">
-</a>
-
+    <a href="https://vuejs.org/">
+        <img src="https://evgeniysaschenko.github.io/newcatalog/tools/vue.png?v=2" align="center" height="50">
+    </a>
+    <a href="https://pugjs.org/">
+        <img src="https://evgeniysaschenko.github.io/newcatalog/tools/pug.png?v=2" align="center" height="50">
+    </a>
+    <a href="https://element-plus.org/">
+        <img src="https://evgeniysaschenko.github.io/newcatalog/tools/elements-plus.png?v=2" align="center" height="50">
+    </a>
+    <a href="https://nuxt.com/">
+        <img src="https://evgeniysaschenko.github.io/newcatalog/tools/nuxt.png?v=2" align="center" height="50">
+    </a>
+    <a href="https://www.typescriptlang.org/">
+        <img src="https://evgeniysaschenko.github.io/newcatalog/tools/typescript.png?v=2" align="center" height="50">
+    </a>
+    <a href="https://nginx.org/en/">
+        <img src="https://evgeniysaschenko.github.io/newcatalog/tools/nginx.png?v=2" align="center" height="50">
+    </a>
+    <a href="https://redis.io/">
+        <img src="https://evgeniysaschenko.github.io/newcatalog/tools/redis.png?v=2" align="center" height="50">
+    </a>
+    <a href="https://nodejs.org/en">
+        <img src="https://evgeniysaschenko.github.io/newcatalog/tools/nodejs.png?v=2" align="center" height="50">
+    </a>
+    <a href="https://www.docker.com/">
+        <img src="https://evgeniysaschenko.github.io/newcatalog/tools/docker.png?v=2" align="center" height="50">
+    </a>
+    <a href="https://www.postgresql.org/">
+        <img src="https://evgeniysaschenko.github.io/newcatalog/tools/postgres.png?v=2" align="center" height="50">
+    </a>
+    <a href="https://sequelize.org/">
+        <img src="https://evgeniysaschenko.github.io/newcatalog/tools/sequelize.png?v=2" align="center" height="50">
+    </a>
 </div>
 
+-----------------------------------------------------------------------------------------------------------------
 
-### Dev
-1. git clone --recurse-submodules https://github.com/EvgeniySaschenko/newcatalog.git
-2. cd newcatalog
-3. bash run.sh dev init
-4. bash run.sh dev up
-5. bash run.sh dev build
+## Install <a name="install"></a>
 
-### Prod
-1. git clone --recurse-submodules https://github.com/{YOUR_REPOSITORY}.git
-2. cd {YOUR_REPOSITORY}
-3. bash run.sh prod init
-### Prod 2
-1. bash run.sh prod start
+> The commands described here were run on <b>Ubuntu</b>
 
-## Run containers
+1. Install such programs if they are not installed on your operating system: <a name="install-programs"></a>
+<a href="https://www.docker.com/">Docker</a>, <a href="https://git-scm.com/">GIT</a>, <a href="https://en.wikipedia.org/wiki/Bash_(Unix_shell)">Bash</a>
 
+<i>To check for the existence of a program, you can run the following commands on the command line: docker --version, git --version, bash --version. If the version is displayed on the command line, then the program is installed.</i>
+
+<br>
+
+2. Run this command in the GIT console to download the repositories to your computer <a name="install-git-clone"></a>
+
+```bash
+git clone --recurse-submodules git@github.com:EvgeniySaschenko/newcatalog.git
 ```
+<br>
+
+3. File <b>.env-prod</b> (optional). For production, before starting, you will need to change the values ​​of these variables <b>PROJECT_NAME, SITE__DOMAIN, ADMIN__DOMAIN, API__PASSWORD_SALT</b> and the name of the folder with the project 
+<br>
+
+4. Go to the project directory and run the file <b>run.sh</b>
+
+```bash
+# Go to directory
+cd newcatalog
+
+# Run the file
+sudo bash run.sh prod init
+```
+<br>
+
+5. After the installation is completed, the site will become available in the browser at the address: <a name="install-browser-open"></a>
+
+<b>Website:</b> https://newcatalog.localhost or your domain
+<b>Admin panel:</b> https://admin.newcatalog.localhost or your domain
+
+<b>Login:</b> default@newcatalog.email
+<b>Password:</b> 123456
+
+-----------------------------------------------------------------------------------------------------------------
+## Development <a name="development"></a>
+
+1. <a href="install-programs">Install the necessary programs</a>
+
+2. <a href="install-git-clone">Clone the project</a>
+
+3. Add the current user user to the "docker" group and be sure to restart the computer. This will give "root" permissions in "docker" containers to the current user of the host machine - necessary for "ESLint" and other "Visual Studio Code" plugins to work
+
+```bash
+sudo usermod -aG docker ${USER}
+```
+
+4. Install plugins "Visual Studio Code":
+
+* ESLint
+* Prettier - Code formatter
+* Vetur
+* Sass (.sass only)
+* PostgreSQL
+* GitLens — Git supercharged
+
+4. Initialize the project 
+
+```bash
+bash run.sh dev init
+```
+5. <a href="#install-browser-open">Open in browser</a>
+<br>
+
+6. Other commands
+
+<b>Stop the services</b>
+```bash
+bash run.sh dev stop
+```
+or
+
+```bash
+Ctrl + C
+```
+<b>Run the services</b>
+```bash
 bash run.sh dev up
 ```
-
-
-## Create dump DB
-
-1. Start container
-
+<b>Run the backup server</b>
+> ❗️ In development mode, you need to start it manually
+```bash
+docker exec -it newcatalog__service--db-main node server.js
 ```
-bash run.sh dev start
+<b>Create a production build</b>
+```bash
+bash run.sh prod build
 ```
+<b>Create a production build</b>
+> ❗️ In order for submodule changes to be reflected in the root repository, you must add the submodule to the GIT history of the main module each time. For example (being in the "newcatalog" directory): 
 
-2. Go to the command line Docker container
-
-```
-docker exec -it newcatalog__service--db-main sh
-```
-
-3. Change user to "postgres"
-
-```
-su - postgres;
+```bash
+git add service--admin
+git add service--site
+git add service--...
+git git commit "...."
+git git push ....
 ```
 
-4. Create schema:
+-----------------------------------------------------------------------------------------------------------------
 
-schema empty
+## Other commands <a name="other-commands"></a>
 
-```
-pg_dump -h localhost -d newcatalog --schema-only -U postgres -W > /var/lib/postgresql/data/1.db-empty.sql
-```
+To run these commands go to the project directory
 
-- or 
 
-schema data
+<b>Stop the services:</b>
 
-```
-pg_dump -h localhost -d newcatalog -U postgres -W > /var/lib/postgresql/data/1.db-data.sql
+```bash
+sudo bash run.sh prod stop
 ```
 
-```
-pg_dump -d newcatalog -t translations > /var/lib/postgresql/data/3.translations-data.sql
-```
+<b>Start the services:</b>
 
-5. Go to the command line of the local computer and copy the desired scheme (db-data.sql, db-empty.sql) to the local computer
-
-
-schema empty
-
-```
-docker cp -a newcatalog__service--db-main:/var/lib/postgresql/data/1.db-empty.sql ./service--db-main/1.db-empty.sql
+```bash
+sudo bash run.sh prod start
 ```
 
-- or 
+<b>Download updates:</b> 
+> ❗️At this stage of development, the functionality may change and be removed, so the update may cause the current code to be in a non-working state.
 
-schema data
-
+```bash
+sudo bash run.sh prod stop
+git pull --recurse-submodules git@github.com:EvgeniySaschenko/newcatalog.git
+sudo bash run.sh prod start
 ```
-docker cp -a newcatalog__service--db-main:/var/lib/postgresql/data/1.db-data.sql ./service--db-main/1.db-data.sql
-```
-
-
-```
-docker cp -a newcatalog__service--db-main:/var/lib/postgresql/data/3.translations-data.sql ./service--db-main/3.translations-data.sql
-```
-docker cp -a newcatalog__service--proxy:/etc/ssl/ ./tmp
-## DB
-```
-docker compose --env-file ./.env-dev down --volumes
-```
-
-
-docker cp newcatalog__service--admin:/app/newcatalog/service--admin/node_modules ./service--admin
-
-
-
-docker rm -v newcatalog__service--db-main
-
-## translations
-```
-In order for the regular expression to correctly extract the text of the translation function $t("text text text"), eslint uses the 'function-paren-newline' rule, this rule prevents the argument from wrapping to the next line.
-```
-```
-In this case, the 'function-paren-newline' rule may conflict with prettier "printWidth" - because of this, the regex may not find all translation functions "$t".
-```
-```
-To see eslint errors, you need to run "npm run lint" locally on your computer, I plan to change this later.
-```
-
