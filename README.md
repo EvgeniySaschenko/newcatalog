@@ -176,7 +176,7 @@ docker exec -it newcatalog__service--db-main node server.js
 ```bash
 bash run.sh prod build
 ```
-<b>Create a production build</b>
+<b>Upload on Github</b>
 > ❗️ In order for submodule changes to be reflected in the root repository, you must add the submodule to the GIT history of the main module each time. For example (being in the "newcatalog" directory): 
 
 ```bash
