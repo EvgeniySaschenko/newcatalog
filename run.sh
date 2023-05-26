@@ -52,14 +52,14 @@ function funInit {
   funCopyDirFromContainer $SITE__SERVICE "node_modules"
 
   # 3. Other containers are created.
-  docker compose -f docker-compose.yml --env-file ./.env-${env} create
-  docker compose -f docker-compose.yml --env-file ./.env-${env} start
+  if [ $env == "prod" ]; then
+    docker compose -f docker-compose.yml --env-file ./.env-${env} create
+    docker compose -f docker-compose.yml --env-file ./.env-${env} start
+  fi
 
-  # local result2=$(docker compose --env-file ./.env-${env} up) && local isBuild2=true
-  # echo "$result2"
-  # if [ "$isBuild2" != true ]; then
-  #   exit
-  # fi
+  if [ $env == "dev" ]; then
+    docker compose -f docker-compose.yml --env-file ./.env-${env} up
+  fi
 }
 
 # Build
@@ -104,7 +104,7 @@ if [ $mode == "up" ] || [ $mode == "start" ] || [ $mode == "stop" ]; then
 fi
 
 # Run a script that creates a database backup 
-if [ $mode == "start" ]; then
+if [ $mode == "start" ] || [ $mode == "init" ]; then
   # docker exec -it newcatalog__service--db-main node server.js
-  docker exec -it ${PROJECT_NAME}__${DB_MAIN__SERVICE} node server.js
+  docker exec -itd ${PROJECT_NAME}__${DB_MAIN__SERVICE} node server.js
 fi
