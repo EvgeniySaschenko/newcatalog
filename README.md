@@ -85,6 +85,7 @@ new Catalog(#);
 ## Install <a name="install"></a>
 
 > The commands described here were run on <b>Ubuntu</b>
+> ❗️You must follow the instructions exactly, all commands must be executed by the <b>run.sh</b> script, for example if you try to install node_modules without <b>run.sh</b> it may cause permission problems.
 
 1. Install such programs if they are not installed on your operating system: <a name="install-programs"></a>
 <a href="https://www.docker.com/">Docker</a>, <a href="https://git-scm.com/">GIT</a>, <a href="https://en.wikipedia.org/wiki/Bash_(Unix_shell)">Bash</a>
@@ -93,17 +94,24 @@ new Catalog(#);
 
 <br>
 
-2. Run this command in the GIT console to download the repositories to your computer <a name="install-git-clone"></a>
+2. <b>(OPTIONAL)</b> You can fork this repository to edit the <b>.env-prod</b> file (more on that later) via the Github interface.
+It is also recommended to change the name of the "newcatalog" repository, the name must comply with the following rules: the name must be unique for the server, must begin with a lowercase letter of the Latin alphabet, may contain numbers, dashes.
+For example, if your site is called <b>example.com</b> you can name the repository <b>example-com</b>
+<br>
+
+3. Run this command in the GIT console to download the repositories to your computer <a name="install-git-clone"></a>
 
 ```bash
 git clone --recurse-submodules git@github.com:EvgeniySaschenko/newcatalog.git
 ```
 <br>
 
-3. File <b>.env-prod</b> (optional). For production, before starting, you will need to change the values ​​of these variables <b>PROJECT_NAME, SITE__DOMAIN, ADMIN__DOMAIN, API__PASSWORD_SALT</b> and the name of the folder with the project 
+4. <b>(OPTIONAL)</b> File <b>.env-prod</b>. For production, before starting, you will need to change the values ​​of these variables <b>PROJECT_NAME, SITE__DOMAIN, ADMIN__DOMAIN, API__PASSWORD_SALT</b> and the name of the folder with the project 
 <br>
 
-4. Go to the project directory and run the file <b>run.sh</b>
+> ❗️It is important to remember that when synchronizing / updating the project, you can overwrite your changes in the <b>.env-prod</b> file
+
+5. Go to the project directory and run the file <b>run.sh</b>
 
 ```bash
 # Go to directory
@@ -114,20 +122,22 @@ sudo bash run.sh prod init
 ```
 <br>
 
-5. After the installation is completed, the site will become available in the browser at the address: <a name="install-browser-open"></a>
+6. After the installation is completed, the site will become available in the browser at the address: <a name="install-browser-open"></a>
 
 <b>Website:</b> https://newcatalog.localhost or your domain
+
 <b>Admin panel:</b> https://admin.newcatalog.localhost or your domain
 
 <b>Login:</b> default@newcatalog.email
+
 <b>Password:</b> 123456
 
 -----------------------------------------------------------------------------------------------------------------
 ## Development <a name="development"></a>
 
-1. <a href="install-programs">Install the necessary programs</a>
+1. <a href="#install-programs">Install the necessary programs</a>
 
-2. <a href="install-git-clone">Clone the project</a>
+2. <a href="#install-git-clone">Clone the project</a>
 
 3. Add the current user user to the "docker" group and be sure to restart the computer. This will give "root" permissions in "docker" containers to the current user of the host machine - necessary for "ESLint" and other "Visual Studio Code" plugins to work
 
@@ -152,7 +162,7 @@ bash run.sh dev init
 5. <a href="#install-browser-open">Open in browser</a>
 <br>
 
-6. Other commands
+6. Run commands in the project directory:
 
 <b>Stop the services</b>
 ```bash
