@@ -162,7 +162,7 @@ bash run.sh dev init
 5. <a href="#install-browser-open">Open in browser</a>
 <br>
 
-6. Run commands in the project folder:
+6. Run commands in the project directory:
 
 <b>Stop the services</b>
 ```bash
