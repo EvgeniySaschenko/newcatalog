@@ -10,7 +10,7 @@
     <a href="#description"><b>Description</b></a> |
     <a href="#install"><b>Install</b></a> |
     <a href="#development"><b>Development</b></a> |
-    <a href="#other-commands"><b>Other commands</b></a>
+    <a href="#other"><b>Other</b></a>
 </div>
 
 -----------------------------------------------------------------------------------------------------------------
@@ -199,7 +199,13 @@ git git push ....
 
 -----------------------------------------------------------------------------------------------------------------
 
-## Other commands <a name="other-commands"></a>
+## Other <a name="other"></a>
+
+<b>User</b>
+
+> ❗️Right now there is only 1 user. At the same time, one user can have only 1 session, you cannot log in from several devices. The session lifetime is 20 minutes, if you work in "incognito browser mode" and close the tab without logging out, you will not be able to log in until the session ends, this also applies to changing the user agent.
+
+<b>Commands:</b>
 
 To run these commands go to the project directory
 
