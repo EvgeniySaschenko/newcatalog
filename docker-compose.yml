@@ -131,8 +131,8 @@ services:
       - .env-${ENV_RUN}
       - .env-custom
     ports:
-      - ${PROXY__PORT_443_EXTERNAL}:443
-      - ${PROXY__PORT_80_EXTERNAL}:80
+      - ${PROXY__PORT_443}:${PROXY__PORT_443}
+      - ${PROXY__PORT_80}:${PROXY__PORT_80}
     volumes:
       # "default.conf.template" - is to be able to pass environment variables to config (see container documentation)
       - ./${PROXY__SERVICE}/nginx.conf:/etc/nginx/templates/default.conf.template
