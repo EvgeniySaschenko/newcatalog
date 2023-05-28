@@ -114,8 +114,8 @@ git clone --recurse-submodules git@github.com:{ YOUR ACCOUNT }/newcatalog.git
 
 4. <b>(OPTIONAL)</b> File <b>.env-custom</b>. For production, before starting, you will need to change the values ​​of these variables (see example file <b>.env-prod</b>): 
 
-* SITE__DOMAIN
-* ADMIN__DOMAIN
+* SITE__DOMAIN - Your domain website
+* ADMIN__DOMAIN- Your domain admin panel
 * API__PASSWORD_SALT - <b>(OPTIONAL)</b> The string that will encrypt your password in the database.
 
 > ❗️It is important to remember that when synchronizing / updating the project, you can overwrite your changes in the <b>.env-custom</b> file. So it's better to save it additionally somewhere else
