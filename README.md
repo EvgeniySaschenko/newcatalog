@@ -87,6 +87,8 @@ new Catalog(#);
 > The commands described here were run on <b>Ubuntu</b>
 > ❗️You must follow the instructions exactly, all commands must be executed by the <b>run.sh</b> script, for example if you try to install node_modules without <b>run.sh</b> it may cause permission problems.
 
+> ❗️This description assumes installing 1 instance of "newcatalog" per server. Also, ports 80 and 443 must be free.
+
 1. Install such programs if they are not installed on your operating system: <a name="install-programs"></a>
 <a href="https://www.docker.com/">Docker</a>, <a href="https://git-scm.com/">GIT</a>, <a href="https://en.wikipedia.org/wiki/Bash_(Unix_shell)">Bash</a>
 
@@ -94,9 +96,7 @@ new Catalog(#);
 
 <br>
 
-2. <b>(OPTIONAL)</b> You can fork this repository to edit the <b>.env-prod</b> file (more on that later) via the Github interface.
-It is also recommended to change the name of the "newcatalog" repository, the name must comply with the following rules: the name must be unique for the server, must begin with a lowercase letter of the Latin alphabet, may contain numbers, dashes.
-For example, if your site is called <b>example.com</b> you can name the repository <b>example-com</b>
+2. <b>(OPTIONAL)</b> Fork this repository to be able to change the environment variables in the <b>.env-custom</b> file through the github interface. I also recommend making your repository private.
 <br>
 
 3. Run this command in the GIT console to download the repositories to your computer <a name="install-git-clone"></a>
@@ -104,12 +104,21 @@ For example, if your site is called <b>example.com</b> you can name the reposito
 ```bash
 git clone --recurse-submodules git@github.com:EvgeniySaschenko/newcatalog.git
 ```
+
+or 
+
+```bash
+git clone --recurse-submodules git@github.com:{ YOUR ACCOUNT }/newcatalog.git
+```
 <br>
 
-4. <b>(OPTIONAL)</b> File <b>.env-prod</b>. For production, before starting, you will need to change the values ​​of these variables <b>PROJECT_NAME, SITE__DOMAIN, ADMIN__DOMAIN, API__PASSWORD_SALT</b> and the name of the folder with the project 
-<br>
+4. <b>(OPTIONAL)</b> File <b>.env-custom</b>. For production, before starting, you will need to change the values ​​of these variables (see example file <b>.env-prod</b>): 
 
-> ❗️It is important to remember that when synchronizing / updating the project, you can overwrite your changes in the <b>.env-prod</b> file
+* SITE__DOMAIN
+* ADMIN__DOMAIN
+* API__PASSWORD_SALT - <b>(OPTIONAL)</b> The string that will encrypt your password in the database.
+
+> ❗️It is important to remember that when synchronizing / updating the project, you can overwrite your changes in the <b>.env-custom</b> file. So it's better to save it additionally somewhere else
 
 5. Go to the project directory and run the file <b>run.sh</b>
 
@@ -204,6 +213,8 @@ git git push ....
 <b>User</b>
 
 > ❗️Right now there is only 1 user. At the same time, one user can have only 1 session, you cannot log in from several devices. The session lifetime is 20 minutes, if you work in "incognito browser mode" and close the tab without logging out, you will not be able to log in until the session ends, this also applies to changing the user agent.
+
+> ❗️Also important. For the user, the password recovery mechanism is not currently implemented, for recovery you will need to use the server console
 
 <b>Commands:</b>
 

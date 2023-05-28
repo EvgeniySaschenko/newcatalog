@@ -54,6 +54,7 @@ services:
     command: ${API__COMAND}
     env_file:
       - .env-${ENV_RUN}
+      - .env-custom
     stdin_open: true
     tty: true
     volumes:
@@ -128,9 +129,10 @@ services:
         - SITE__DOMAIN=${SITE__DOMAIN}
     env_file:
       - .env-${ENV_RUN}
+      - .env-custom
     ports:
-      - 443:443
-      - 80:80
+      - ${PROXY__PORT_443_EXTERNAL}:443
+      - ${PROXY__PORT_80_EXTERNAL}:80
     volumes:
       # "default.conf.template" - is to be able to pass environment variables to config (see container documentation)
       - ./${PROXY__SERVICE}/nginx.conf:/etc/nginx/templates/default.conf.template
