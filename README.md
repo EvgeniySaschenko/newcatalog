@@ -14,8 +14,9 @@
 </div>
 
 -----------------------------------------------------------------------------------------------------------------
+<a name="description"></a>
 
-## Description <a name="description"></a>
+## Description 
 <b>NEWCATALOG</b> is a content management system (CMS) that allows you to create catalogs / ratings of websites.
 
 > ❗️ This is not yet a stable version of the CMS, it will change and may contain critical bugs. I plan to gradually refactor and add new functionality.
@@ -83,38 +84,33 @@ new Catalog(#);
 </div>
 
 -----------------------------------------------------------------------------------------------------------------
+<a name="install"></a> 
 
-## Install <a name="install"></a>
+## Install 
 
 > The commands described here were run on <b>Ubuntu</b>
 > ❗️You must follow the instructions exactly, all commands must be executed by the <b>run.sh</b> script, for example if you try to install node_modules without <b>run.sh</b> it may cause permission problems.
 
 > ❗️This description assumes installing 1 instance of "newcatalog" per server. Also, ports 80 and 443 must be free.
 
-1. Install such programs if they are not installed on your operating system: <a name="install-programs"></a>
+<a name="install-programs"></a>
+
+1. Install such programs if they are not installed on your operating system: 
 <a href="https://www.docker.com/">Docker</a>, <a href="https://git-scm.com/">GIT</a>, <a href="https://en.wikipedia.org/wiki/Bash_(Unix_shell)">Bash</a>
 
 <i>To check for the existence of a program, you can run the following commands on the command line: docker --version, git --version, bash --version. If the version is displayed on the command line, then the program is installed.</i>
 
-<br>
+<a name="install-git-clone"></a>
 
-2. <b>(OPTIONAL)</b> Fork this repository to be able to change the environment variables in the <b>.env-custom</b> file through the github interface. I also recommend making your repository private.
-<br>
-
-3. Run this command in the GIT console to download the repositories to your computer <a name="install-git-clone"></a>
+2. Run this command in the GIT console to download the repositories to your computer
 
 ```bash
 git clone --recurse-submodules git@github.com:EvgeniySaschenko/newcatalog.git
 ```
 
-or 
-
-```bash
-git clone --recurse-submodules git@github.com:{ YOUR ACCOUNT }/newcatalog.git
-```
 <br>
 
-4. <b>(OPTIONAL)</b> File <b>.env-custom</b>. For production, before starting, you will need to change the values ​​of these variables (see example file <b>.env-prod</b>): 
+3. <b>(OPTIONAL)</b> In the production <b>.env-custom</b> file, some variables will need to be added before running (see example <b>.env-prod</b> file):
 
 * SITE__DOMAIN - Your domain website
 * ADMIN__DOMAIN- Your domain admin panel
@@ -122,7 +118,7 @@ git clone --recurse-submodules git@github.com:{ YOUR ACCOUNT }/newcatalog.git
 
 > ❗️It is important to remember that when synchronizing / updating the project, you can overwrite your changes in the <b>.env-custom</b> file. So it's better to save it additionally somewhere else
 
-5. Go to the project directory and run the file <b>run.sh</b>
+4. Go to the project directory and run the file <b>run.sh</b>
 
 ```bash
 # Go to directory
@@ -131,9 +127,11 @@ cd newcatalog
 # Run the file
 sudo bash run.sh prod init
 ```
-<br>
 
-6. After the installation is completed, the site will become available in the browser at the address: <a name="install-browser-open"></a>
+<a name="install-browser-open"></a>
+
+
+5. After the installation is completed, the site will become available in the browser at the address: 
 
 <b>Website:</b> https://newcatalog.localhost or your domain
 
@@ -144,7 +142,9 @@ sudo bash run.sh prod init
 <b>Password:</b> 123456
 
 -----------------------------------------------------------------------------------------------------------------
-## Development <a name="development"></a>
+<a name="development"></a>
+
+## Development 
 
 1. <a href="#install-programs">Install the necessary programs</a>
 
@@ -209,8 +209,8 @@ git git push ....
 ```
 
 -----------------------------------------------------------------------------------------------------------------
-
-## Other <a name="other"></a>
+<a name="other"></a>
+## Other 
 
 <b>User</b>
 
