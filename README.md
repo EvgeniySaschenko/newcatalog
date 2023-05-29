@@ -20,7 +20,9 @@
 
 > ❗️ This is not yet a stable version of the CMS, it will change and may contain critical bugs. I plan to gradually refactor and add new functionality.
 
-<b>Demo admin panel:</b> https://dmin.newcatalog.net:1111
+<b>Demo admin panel:</b> https://admin.newcatalog.net:1111
+
+The manual for the demo mode is in this repository, file <b>manual-demo.pdf</b>
 
 <b>My website:</b> https://newcatalog.net
 
