@@ -31,8 +31,8 @@ The manual for the demo mode is in this repository, file <b>manual-demo.pdf</b>
 
 <b>Functional:</b>
 
-- Creation of collections of sites
-- Creation screenshots of websites
+- Creation of collections of web pages
+- Creation screenshots of web pages
 - The site logo can be created in the browser (cut from the screenshot)
 - You can add new languages through the browser interface
 - You can change the appearance of the website (logos, colors)
