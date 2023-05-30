@@ -31,8 +31,8 @@ The manual for the demo mode is in this repository, file <b>manual-demo.pdf</b>
 
 <b>Functional:</b>
 
-- Creating sections and collections of sites in these sections
-- Create screenshots of websites
+- Creation of collections of sites
+- Creation screenshots of websites
 - The site logo can be created in the browser (cut from the screenshot)
 - You can add new languages through the browser interface
 - You can change the appearance of the website (logos, colors)
@@ -248,3 +248,7 @@ sudo bash run.sh prod stop
 git pull --recurse-submodules git@github.com:EvgeniySaschenko/newcatalog.git
 sudo bash run.sh prod start
 ```
+
+<b>Website analytics:</b>
+
+You can add your own scripts through the settings in the admin panel (for example, Google Tag Manager). Some elements have data attributes data-analyzed-element , data-analyzed-element-data can be used to get data
