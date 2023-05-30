@@ -19,6 +19,8 @@
 ## Description 
 <b>NEWCATALOG</b> is a content management system (CMS) that allows you to create catalogs / ratings of websites.
 
+This CMS allows you to quickly create a collection of web pages and better structures the data when compared with non-specialized CMS in the task of creating a subset of web pages.
+
 > ❗️ This is not yet a stable version of the CMS, it will change and may contain critical bugs. I plan to gradually refactor and add new functionality.
 
 <b>Demo admin panel:</b> https://admin.newcatalog.net:1111
@@ -29,8 +31,8 @@ The manual for the demo mode is in this repository, file <b>manual-demo.pdf</b>
 
 <b>Functional:</b>
 
-- Creating sections and collections of sites in these sections
-- Create screenshots of websites
+- Creation of collections of sites
+- Creation screenshots of websites
 - The site logo can be created in the browser (cut from the screenshot)
 - You can add new languages through the browser interface
 - You can change the appearance of the website (logos, colors)
@@ -88,7 +90,8 @@ new Catalog(#);
 
 ## Install 
 
-> The commands described here were run on <b>Ubuntu</b>
+> The commands described here were run on <b>Ubuntu</b> (don't forget that you can install <a href="https://www.virtualbox.org/">Virtualbox</a>)
+
 > ❗️You must follow the instructions exactly, all commands must be executed by the <b>run.sh</b> script, for example if you try to install node_modules without <b>run.sh</b> it may cause permission problems.
 
 > ❗️This description assumes installing 1 instance of "newcatalog" per server. Also, ports 80 and 443 must be free.
@@ -127,6 +130,8 @@ cd newcatalog
 # Run the file
 sudo bash run.sh prod init
 ```
+
+<i>If the installation fails, try running this command again. The error may be related to the unavailability at the moment of the servers hosting the software packages ("npm", "docker", etc.).</i>
 
 <a name="install-browser-open"></a>
 
@@ -243,3 +248,7 @@ sudo bash run.sh prod stop
 git pull --recurse-submodules git@github.com:EvgeniySaschenko/newcatalog.git
 sudo bash run.sh prod start
 ```
+
+<b>Website analytics:</b>
+
+You can add your own scripts through the settings in the admin panel (for example, Google Tag Manager). Some elements have data attributes data-analyzed-element , data-analyzed-element-data can be used to get data
