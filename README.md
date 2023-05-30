@@ -90,7 +90,8 @@ new Catalog(#);
 
 ## Install 
 
-> The commands described here were run on <b>Ubuntu</b>
+> The commands described here were run on <b>Ubuntu</b> (don't forget that you can install <a href="https://www.virtualbox.org/">Virtualbox</a>)
+
 > ❗️You must follow the instructions exactly, all commands must be executed by the <b>run.sh</b> script, for example if you try to install node_modules without <b>run.sh</b> it may cause permission problems.
 
 > ❗️This description assumes installing 1 instance of "newcatalog" per server. Also, ports 80 and 443 must be free.
@@ -129,6 +130,8 @@ cd newcatalog
 # Run the file
 sudo bash run.sh prod init
 ```
+
+<i>If the installation fails, try running this command again. The error may be related to the unavailability at the moment of the servers hosting the software packages ("npm", "docker", etc.).</i>
 
 <a name="install-browser-open"></a>
 
