@@ -19,6 +19,8 @@
 ## Description 
 <b>NEWCATALOG</b> is a content management system (CMS) that allows you to create catalogs / ratings of websites.
 
+This CMS allows you to quickly create a collection of web pages and better structures the data when compared with non-specialized CMS in the task of creating a subset of web pages.
+
 > ❗️ This is not yet a stable version of the CMS, it will change and may contain critical bugs. I plan to gradually refactor and add new functionality.
 
 <b>Demo admin panel:</b> https://admin.newcatalog.net:1111
