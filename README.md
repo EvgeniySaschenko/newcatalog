@@ -270,6 +270,7 @@ ditRating(rating)
 10. In most cases, it is convenient to stick to a hierarchy in the names of fields / variables - for example:
 
 <b>ratingId, ratingName</b> - displays nesting in rating
+
 <b>idRating, nameRating</b> - does not display nesting
 
 -----------------------------------------------------------------------------------------------------------------
