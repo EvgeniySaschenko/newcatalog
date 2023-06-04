@@ -265,7 +265,7 @@ ditRating(rating)
 
 8. The name of the id (primary key) field in the database - it's better to call it not just id , but the name of the table in a single number + id - for example: <b>ratingId</b>, <b>sectionId</b>... This is much clearer, especially when linking tables.
 
-9. <b>Nesting of data that is sent by the backend and the folder structure of the project.</b> The structure should tend to be flat - so as not to become a <b>pyramid</b>, but the hierarchy is also needed so that the project does not become <b>chaotic</b>.
+9. <b>Nesting of data that is sent by the backend and the folder structure of the project.</b> The structure of the project should tend to be flat so as not to turn into a <b>pyramid</b>, but the hierarchy is also needed so that the project does not become <b>chaotic</b>.
 
 10. In most cases, it is convenient to stick to a hierarchy in the names of fields / variables - for example:
 
