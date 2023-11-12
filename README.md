@@ -24,11 +24,9 @@ This CMS allows you to quickly create a collection of web pages and better struc
 
 > ❗️ This is not yet a stable version of the CMS, it will change and may contain critical bugs. I plan to gradually refactor and add new functionality.
 
-<b>Demo admin panel:</b> https://admin.newcatalog.net:1111
+<b>Demo admin panel:</b> https://newcatalog-admin.ua-ix.biz/
 
 The manual for the demo mode is in this repository, file <b>manual-demo.pdf</b>
-
-<b>My website:</b> https://newcatalog.net
 
 <b>Functional:</b>
 
@@ -129,7 +127,7 @@ git clone --recurse-submodules git@github.com:EvgeniySaschenko/newcatalog.git
 cd newcatalog
 
 # Run the file
-sudo bash run.sh prod init
+bash run.sh prod init
 ```
 
 <i>If the installation fails, try running this command again. The error may be related to the unavailability at the moment of the servers hosting the software packages ("npm", "docker", etc.).</i>
@@ -292,22 +290,22 @@ To run these commands go to the project directory
 <b>Stop the services:</b>
 
 ```bash
-sudo bash run.sh prod stop
+bash run.sh prod stop
 ```
 
 <b>Start the services:</b>
 
 ```bash
-sudo bash run.sh prod start
+bash run.sh prod start
 ```
 
 <b>Download updates:</b> 
 > ❗️At this stage of development, the functionality may change and be removed, so the update may cause the current code to be in a non-working state.
 
 ```bash
-sudo bash run.sh prod stop
+bash run.sh prod stop
 git pull --recurse-submodules git@github.com:EvgeniySaschenko/newcatalog.git
-sudo bash run.sh prod start
+bash run.sh prod start
 ```
 
 <b>Website analytics:</b>
