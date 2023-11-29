@@ -224,7 +224,7 @@ Some principles that will help you understand how the project works:
 
 3. In config files, define values for a specific service.
 
-4. Plugins folder - in most cases, these are functions that are intended to be used throughout the project.
+4. Plugins folder - in most cases, these are functions that are intended to be used throughout the project. 
 
 5. Prefixes in names - a unique prefix helps you quickly find a specific type of code, for example:
 
@@ -270,6 +270,52 @@ ditRating(rating)
 <b>ratingId, ratingName</b> - displays nesting in rating
 
 <b>idRating, nameRating</b> - does not display nesting
+
+11. It is necessary to remember that in node.js scripts can save the previous state of object variables/fields after each call, <b>in some cases this can lead to errors.</b>
+
+For example: <br>
+
+❌ Data is accumulated in an array
+
+```js
+// File - user.js
+let myArray = [];
+module.exports = {
+    myArray: [],
+    pushToArray(value) {
+        myArray.push(value); // 1. The variable is declared above "module.exports"
+        this.myArray.push(value); // 2. Data is saved in a field of the exported object
+        global.myArray.push(value); // 3. The variable is global
+    },
+};
+
+// Calling a route
+let user = require('./user.js');
+router.get('/', async (request, response, next) => {
+    user.pushToArray(123);
+});
+```
+
+✅ Data is not accumulated in an array <br>
+To avoid accidentally saving state, you can create an object each time using the “new” operator, and save the data in the object field.
+
+```js
+// File - user.js
+class User {
+    myArray: [],
+    pushToArray(value) {
+        this.myArray.push(value);
+    },
+};
+module.exports = User;
+
+// Calling a route
+let User = require('./user.js');
+router.get('/', async (request, response, next) => {
+    let user = new User();
+    user.pushToArray(123);
+});
+```
 
 -----------------------------------------------------------------------------------------------------------------
 
