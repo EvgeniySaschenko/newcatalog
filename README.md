@@ -1,4 +1,5 @@
 <div align="center">
+
 <a href="https://github.com/EvgeniySaschenko/newcatalog">
     <img src="https://evgeniysaschenko.github.io/newcatalog/logo-bg.png?v=2">
 </a>
@@ -15,6 +16,14 @@
 </div>
 
 -----------------------------------------------------------------------------------------------------------------
+
+<div>
+    <em>Бывает так всё движется как надо,</em><br>
+    <em>Но у богов на каждого свой план.</em><br>
+    <em>Кто слишком горд собой, тот станет порицаем,</em><br>
+    <em>Невежда, всё познает сам.</em><br>
+</div>
+
 <a name="description"></a>
 
 ## Description 
