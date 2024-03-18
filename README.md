@@ -11,7 +11,6 @@
     <a href="#description"><b>Description</b></a> |
     <a href="#install"><b>Install</b></a> |
     <a href="#development"><b>Development</b></a> |
-    <a href="#about-development"><b>About development</b></a> |
     <a href="#other"><b>Other</b></a>
 </div>
 
@@ -212,111 +211,6 @@ git add service--site
 git add service--...
 git git commit "...."
 git git push ....
-```
-
------------------------------------------------------------------------------------------------------------------
-<a name="about-development"></a>
-## About development
-
-Some principles that will help you understand how the project works:
-
-1. Constant / default values - in most cases I define them in <b>config</b> or <b>.env-*</b> files, this saves me from having to remember where these values are used (when something changes in the program, this is important).
-
-2. In <b>.env-*</b> files, the values ​​necessary for starting the project or which are used in several services are mainly defined (so as not to duplicate the value).
-
-3. In config files, define values for a specific service.
-
-4. Plugins folder - in most cases, these are functions that are intended to be used throughout the project. 
-
-5. Prefixes in names - a unique prefix helps you quickly find a specific type of code, for example:
-
-```js
-this.$api['ratings'].getRating({ ratingId })
-```
-If you type `this.$api['ratings']` in the editor, you will find all the code related to `$api['ratings']`.
-
-6. Request libraries - it's better to group requests into libraries, this allows you to quickly find the desired request and also make changes easier. For example: <b>plugins/db-main</b> and <b>plugins/api</b>
-
-
-7. In many cases, parameters are passed to a function explicitly as an object:
-
-* This ensures that some other parameters were not accidentally passed (for example, extra parameters were sent from the frontend, and the backender used them, and then they were deleted on the frontend)
-* Passing as an object - in the object it is not required to follow the sequence of passing parameters, which allows to avoid errors associated with this
-* You can immediately see what parameters are being passed.
-
-```js
-// Good
-ditRating({
-    ratingId,
-    name,
-    descr,
-    linksToSources,
-    isHiden,
-    sectionsIds,
-    typeSort,
-    typeDisplay,
-    typeRating,
-  })
-
-// Bad (In most cases)
-
-ditRating(rating)
-```
-
-8. The name of the id (primary key) field in the database - it's better to call it not just id , but the name of the table in a single number + id - for example: <b>ratingId</b>, <b>sectionId</b>... This is much clearer, especially when linking tables.
-
-9. <b>Nesting of data that is sent by the backend and the folder structure of the project.</b> The structure of the project should tend to be flat so as not to turn into a <b>pyramid</b>, but the hierarchy is also needed so that the project does not become <b>chaotic</b>.
-
-10. In most cases, it is convenient to stick to a hierarchy in the names of fields / variables - for example:
-
-<b>ratingId, ratingName</b> - displays nesting in rating
-
-<b>idRating, nameRating</b> - does not display nesting
-
-11. It is necessary to remember that in node.js scripts can save the previous state of object variables/fields after each call, <b>in some cases this can lead to errors.</b>
-
-For example: <br>
-
-❌ Data is accumulated in an array
-
-```js
-// File - user.js
-let myArray = [];
-module.exports = {
-    myArray: [],
-    pushToArray(value) {
-        myArray.push(value); // 1. The variable is declared above "module.exports"
-        this.myArray.push(value); // 2. Data is saved in a field of the exported object
-        global.myArray.push(value); // 3. The variable is global
-    },
-};
-
-// Calling a route
-let user = require('./user.js');
-router.get('/', async (request, response, next) => {
-    user.pushToArray(123);
-});
-```
-
-✅ Data is not accumulated in an array <br>
-To avoid accidentally saving state, you can create an object each time using the “new” operator, and save the data in the object field.
-
-```js
-// File - user.js
-class User {
-    myArray: [],
-    pushToArray(value) {
-        this.myArray.push(value);
-    },
-};
-module.exports = User;
-
-// Calling a route
-let User = require('./user.js');
-router.get('/', async (request, response, next) => {
-    let user = new User();
-    user.pushToArray(123);
-});
 ```
 
 -----------------------------------------------------------------------------------------------------------------
