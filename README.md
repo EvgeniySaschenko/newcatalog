@@ -47,6 +47,9 @@ In some programming languages, the <b>"new"</b> operator is used to create an in
 ```js
 new Catalog(#);
 ```
+
+The principle of construction is in commits.
+<br>
 <b>Tools</b> 
 
 <div align="center">
