@@ -165,7 +165,7 @@ sudo usermod -aG docker ${USER}
 
 4. Install plugins "Visual Studio Code":
 
-* ESLint
+* ESLint (v2.4.4)
 * Prettier - Code formatter
 * Vetur
 * Sass (.sass only)
