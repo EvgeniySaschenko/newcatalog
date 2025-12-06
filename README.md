@@ -111,7 +111,7 @@ new Catalog(#);
 2. Run this command in the GIT console to download the repositories to your computer
 
 ```bash
-git clone --recurse-submodules git@github.com:EvgeniySaschenko/newcatalog.git
+git clone --recurse-submodules https://github.com/EvgeniySaschenko/newcatalog.git
 ```
 
 <br>
@@ -355,7 +355,7 @@ bash run.sh prod start
 
 ```bash
 bash run.sh prod stop
-git pull --recurse-submodules git@github.com:EvgeniySaschenko/newcatalog.git
+git pull --recurse-submodules https://github.com/EvgeniySaschenko/newcatalog.git
 bash run.sh prod start
 ```
 
