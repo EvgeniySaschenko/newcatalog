@@ -1,5 +1,3 @@
-version: "3.9"
-
 services:
   # site
   service--site:
@@ -8,12 +6,11 @@ services:
       context: ./${SITE__SERVICE}
       args:
         - WORKDIR_BASE=${WORKDIR_BASE}
-        - SERVICE=${SITE__SERVICE}
     command: npm run build 
     volumes:
-      - ./${SITE__SERVICE}:${WORKDIR_BASE}/${SITE__SERVICE}
+      - ./${SITE__SERVICE}:${WORKDIR_BASE}
       # node_modules
-      - ./${SITE__SERVICE}/node_modules:${WORKDIR_BASE}/${SITE__SERVICE}/node_modules/
+      - ./${SITE__SERVICE}/node_modules:${WORKDIR_BASE}/node_modules/
 
   # admin
   service--admin:
@@ -22,9 +19,8 @@ services:
       context: ./${ADMIN__SERVICE}
       args:
         - WORKDIR_BASE=${WORKDIR_BASE}
-        - SERVICE=${ADMIN__SERVICE}
     command: npm run build
     volumes: 
-      - ./${ADMIN__SERVICE}:${WORKDIR_BASE}/${ADMIN__SERVICE}
+      - ./${ADMIN__SERVICE}:${WORKDIR_BASE}
       # node_modules
-      - ./${ADMIN__SERVICE}/node_modules:${WORKDIR_BASE}/${ADMIN__SERVICE}/node_modules/
+      - ./${ADMIN__SERVICE}/node_modules:${WORKDIR_BASE}/node_modules/

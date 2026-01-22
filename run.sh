@@ -95,6 +95,10 @@ fi
 
 # Recreate containers to pass "build files"
 if [ $mode == "start" ]; then
+  docker rm -f ${PROJECT_NAME}__${ADMIN__SERVICE}
+  docker rm -f ${PROJECT_NAME}__${SITE__SERVICE}
+  docker rmi ${PROJECT_NAME}__${ADMIN__SERVICE}
+  docker rmi ${PROJECT_NAME}__${SITE__SERVICE}
   docker compose -f docker-compose.yml --env-file ./.env-${env} create
 fi
 

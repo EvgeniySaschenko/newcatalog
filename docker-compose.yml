@@ -1,5 +1,3 @@
-version: "3.9"
-
 services:
   # site
   service--site:
@@ -8,16 +6,15 @@ services:
       context: ./${SITE__SERVICE}
       args:
         - WORKDIR_BASE=${WORKDIR_BASE}
-        - SERVICE=${SITE__SERVICE}
     env_file:
       - .env-${ENV_RUN}
     command: ${SITE__COMAND}
     stdin_open: true
     tty: true
     volumes:
-      - ./${SITE__SERVICE}:${WORKDIR_BASE}/${SITE__SERVICE}
+      - ./${SITE__SERVICE}:${WORKDIR_BASE}
       # node_modules
-      - ./${SITE__SERVICE}/node_modules:${WORKDIR_BASE}/${SITE__SERVICE}/node_modules/
+      - ./${SITE__SERVICE}/node_modules:${WORKDIR_BASE}/node_modules/
     depends_on:
       - ${DB_TEMPORARY__SERVICE}
     restart: ${CONTAINER_RESTART_MODE}
@@ -29,28 +26,26 @@ services:
       context: ./${ADMIN__SERVICE}
       args:
         - WORKDIR_BASE=${WORKDIR_BASE}
-        - SERVICE=${ADMIN__SERVICE}
     env_file:
       - .env-${ENV_RUN}
     command: ${ADMIN__COMAND}
     stdin_open: true
     tty: true
     volumes: 
-      - ./${ADMIN__SERVICE}:${WORKDIR_BASE}/${ADMIN__SERVICE}
+      - ./${ADMIN__SERVICE}:${WORKDIR_BASE}
       # node_modules
-      - ./${ADMIN__SERVICE}/node_modules:${WORKDIR_BASE}/${ADMIN__SERVICE}/node_modules/
+      - ./${ADMIN__SERVICE}/node_modules:${WORKDIR_BASE}/node_modules/
     depends_on:
       - ${API__SERVICE}
     restart: ${CONTAINER_RESTART_MODE}
 
-  # #api
+  #api
   service--api:
     container_name: ${PROJECT_NAME}__${API__SERVICE}
     build: 
       context: ./${API__SERVICE}
       args:
         - WORKDIR_BASE=${WORKDIR_BASE}
-        - SERVICE=${API__SERVICE}
     command: ${API__COMAND}
     env_file:
       - .env-${ENV_RUN}
@@ -58,17 +53,16 @@ services:
     stdin_open: true
     tty: true
     volumes:
-      - ./${API__SERVICE}:${WORKDIR_BASE}/${API__SERVICE}
-      - ./${API__SERVICE}/node_modules:${WORKDIR_BASE}/${API__SERVICE}/node_modules/
+      - ./${API__SERVICE}:${WORKDIR_BASE}
+      - ./${API__SERVICE}/node_modules:${WORKDIR_BASE}/node_modules/
       # For parse function $t()
-      - ./${ADMIN__SERVICE}/src:${WORKDIR_BASE}/${API__SERVICE}/symlinks/${ADMIN__SERVICE}/
-      - ./${SITE__SERVICE}:${WORKDIR_BASE}/${API__SERVICE}/symlinks/${SITE__SERVICE}/
-      # files
-      - ./${FILES__SERVICE}:${WORKDIR_BASE}/${API__SERVICE}/symlinks/${FILES__SERVICE}/
+      - ./${ADMIN__SERVICE}/src:${WORKDIR_BASE}/services/${ADMIN__SERVICE}
+      - ./${SITE__SERVICE}:${WORKDIR_BASE}/services/${SITE__SERVICE}
       # db main
-      - ./${DB_MAIN__SERVICE}:${WORKDIR_BASE}/${API__SERVICE}/symlinks/${DB_MAIN__SERVICE}/
+      - ./${DB_MAIN__SERVICE}:${WORKDIR_BASE}/services/${DB_MAIN__SERVICE}
       # proxy
-      - ./${PROXY__SERVICE}:${WORKDIR_BASE}/${API__SERVICE}/symlinks/${PROXY__SERVICE}/
+      - ./${PROXY__SERVICE}:${WORKDIR_BASE}/services/${PROXY__SERVICE}
+      - ${FILES__STORAGE_NAME}:${WORKDIR_BASE}/${FILES__STORAGE_PERMANENT}
     depends_on:
       - ${DB_MAIN__SERVICE}
       - ${DB_TEMPORARY__SERVICE}
@@ -81,7 +75,6 @@ services:
       context: ./${DB_MAIN__SERVICE}
       args:
         - WORKDIR_BASE=${WORKDIR_BASE}
-        - SERVICE=${DB_MAIN__SERVICE}
     environment:
       POSTGRES_DB: ${DB_MAIN__NAME_DB}
       POSTGRES_PASSWORD: ${DB_MAIN__PASSWORD_DB}
@@ -100,13 +93,11 @@ services:
     stdin_open: true
     tty: true
     volumes:
-      # database
-      - /var/lib/postgresql/data
       # "docker-entrypoint-initdb.d" - creates a table in the database and performs some actions 1 time during initialization (see container documentation)
-      - ./${DB_MAIN__SERVICE}/init:/docker-entrypoint-initdb.d
+      - ./${DB_MAIN__SERVICE}/init:/docker-entrypoint-initdb.d:ro
        # Creates a backup
-      - ./${DB_MAIN__SERVICE}/server.js:${WORKDIR_BASE}/${DB_MAIN__SERVICE}/server.js
-      - ./${DB_MAIN__SERVICE}/${DB_MAIN__BACKUP_DIR}:${WORKDIR_BASE}/${DB_MAIN__SERVICE}/${DB_MAIN__BACKUP_DIR}
+      - ./${DB_MAIN__SERVICE}/server.js:${WORKDIR_BASE}/server.js:ro
+      - ./${DB_MAIN__SERVICE}/${DB_MAIN__BACKUP_DIR}:${WORKDIR_BASE}/${DB_MAIN__BACKUP_DIR}
     restart: ${CONTAINER_RESTART_MODE}
 
   # db - redis
@@ -125,8 +116,6 @@ services:
       context: ./${PROXY__SERVICE}
       args:
         - WORKDIR_BASE=${WORKDIR_BASE}
-        - SERVICE=${PROXY__SERVICE}
-        - SITE__DOMAIN=${SITE__DOMAIN}
     env_file:
       - .env-${ENV_RUN}
       - .env-custom
@@ -135,10 +124,9 @@ services:
       - ${PROXY__PORT_80}:${PROXY__PORT_80}
     volumes:
       # "default.conf.template" - is to be able to pass environment variables to config (see container documentation)
-      - ./${PROXY__SERVICE}/nginx.conf:/etc/nginx/templates/default.conf.template
-      # files
-      - ./${FILES__SERVICE}:${PROXY__FILES_STORAGE}
-      - ./${PROXY__SERVICE}:${WORKDIR_BASE}/${PROXY__SERVICE}
+      - ./${PROXY__SERVICE}:${WORKDIR_BASE}:ro
+      - ${FILES__STORAGE_NAME}:${WORKDIR_BASE}/${FILES__STORAGE_PERMANENT}:ro
+      - ./${PROXY__SERVICE}/config:${PROXY__CONFIG_DIR}:ro
     depends_on:
       - ${ADMIN__SERVICE}
       - ${SITE__SERVICE}
@@ -147,11 +135,22 @@ services:
     restart: ${CONTAINER_RESTART_MODE}
 
   # files
+  # When initializing a project, the service adds files from a folder named "service--files" (the folder is located on the host) to a volume named "${FILES__STORAGE_NAME}".
+  # Note: Files from the "service--files" folder are only added to the "${FILES__STORAGE_NAME}" volume during initialization; this is done for security reasons.
   service--files:
+    env_file:
+      - .env-${ENV_RUN}
+      - .env-custom
     container_name: ${PROJECT_NAME}__${FILES__SERVICE}
     build: 
       context: ./${FILES__SERVICE}
       args:
         - WORKDIR_BASE=${WORKDIR_BASE}
-        - SERVICE=${FILES__SERVICE}
     restart: ${CONTAINER_RESTART_MODE}
+    volumes:
+      - ${FILES__STORAGE_NAME}:${WORKDIR_BASE}/${FILES__STORAGE_PERMANENT}
+      # - ./${FILES__SERVICE}:${WORKDIR_BASE}/${FILES__STORAGE_PERMANENT}
+
+volumes:
+  storage--files:
+    name: ${PROJECT_NAME}__${FILES__STORAGE_NAME}
