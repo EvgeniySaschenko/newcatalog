@@ -22,7 +22,7 @@ function funDeleteDirLocal {
 # $1 - sevice dir
 # $2 - target dir
 function funCopyDirFromContainer {
-  local result=$(docker cp -a "${PROJECT_NAME}__$1:${WORKDIR_BASE}/$1/$2" "./$1") && local isCopy=true
+  local result=$(docker cp -a "${PROJECT_NAME}__$1:${WORKDIR_BASE}/$2" "./$1") && local isCopy=true
   echo "$result"
   if [ "$isCopy" != true ]; then
     exit
@@ -95,10 +95,6 @@ fi
 
 # Recreate containers to pass "build files"
 if [ $mode == "start" ]; then
-  docker rm -f ${PROJECT_NAME}__${ADMIN__SERVICE}
-  docker rm -f ${PROJECT_NAME}__${SITE__SERVICE}
-  docker rmi ${PROJECT_NAME}__${ADMIN__SERVICE}
-  docker rmi ${PROJECT_NAME}__${SITE__SERVICE}
   docker compose -f docker-compose.yml --env-file ./.env-${env} create
 fi
 

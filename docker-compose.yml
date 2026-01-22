@@ -124,9 +124,9 @@ services:
       - ${PROXY__PORT_80}:${PROXY__PORT_80}
     volumes:
       # "default.conf.template" - is to be able to pass environment variables to config (see container documentation)
-      - ./${PROXY__SERVICE}:${WORKDIR_BASE}:ro
+      - ./${PROXY__SERVICE}:${WORKDIR_BASE}
       - ${FILES__STORAGE_NAME}:${WORKDIR_BASE}/${FILES__STORAGE_PERMANENT}:ro
-      - ./${PROXY__SERVICE}/config:${PROXY__CONFIG_DIR}:ro
+      - ./${PROXY__SERVICE}/config:${PROXY__CONFIG_DIR}
     depends_on:
       - ${ADMIN__SERVICE}
       - ${SITE__SERVICE}
