@@ -1,26 +1,26 @@
 services:
   # site
   service--site:
-    container_name: ${PROJECT_NAME}__${SITE__SERVICE}
+    container_name: ${APP_NAME}__${SITE__SERVICE}
     build: 
       context: ./${SITE__SERVICE}
       args:
-        - WORKDIR_BASE=${WORKDIR_BASE}
+        - APP_DIR=${APP_DIR}
     command: npm run build 
     volumes:
-      - ./${SITE__SERVICE}:${WORKDIR_BASE}
+      - ./${SITE__SERVICE}:${APP_DIR}
       # node_modules
-      - ./${SITE__SERVICE}/node_modules:${WORKDIR_BASE}/node_modules/
+      - ./${SITE__SERVICE}/node_modules:${APP_DIR}/node_modules/
 
   # admin
   service--admin:
-    container_name: ${PROJECT_NAME}__${ADMIN__SERVICE}
+    container_name: ${APP_NAME}__${ADMIN__SERVICE}
     build: 
       context: ./${ADMIN__SERVICE}
       args:
-        - WORKDIR_BASE=${WORKDIR_BASE}
+        - APP_DIR=${APP_DIR}
     command: npm run build
     volumes: 
-      - ./${ADMIN__SERVICE}:${WORKDIR_BASE}
+      - ./${ADMIN__SERVICE}:${APP_DIR}
       # node_modules
-      - ./${ADMIN__SERVICE}/node_modules:${WORKDIR_BASE}/node_modules/
+      - ./${ADMIN__SERVICE}/node_modules:${APP_DIR}/node_modules/
