@@ -60,11 +60,12 @@ services:
       - ./${SITE__SERVICE}:${APP_DIR}/services/${SITE__SERVICE}
       # db main
       - ./${DB_MAIN__SERVICE}:${APP_DIR}/services/${DB_MAIN__SERVICE}
-      # proxy
-      - ./${PROXY__SERVICE}:${APP_DIR}/services/${PROXY__SERVICE}
-      # files
-      - ${FILES__STORAGE}:${FILES__MOUNT_DIR}
+      # proxy - storage
+      - ${PROXY__STORAGE}:${PROXY__STORAGE_MOUNT_DIR}
+      # files - storage
+      - ${FILES__STORAGE}:${FILES__STORAGE_MOUNT_DIR}
     depends_on:
+      - ${FILES__SERVICE}
       - ${DB_MAIN__SERVICE}
       - ${DB_TEMPORARY__SERVICE}
     restart: ${CONTAINER_RESTART_MODE}
@@ -124,10 +125,15 @@ services:
       - ${PROXY__PORT_443}:${PROXY__PORT_443}
       - ${PROXY__PORT_80}:${PROXY__PORT_80}
     volumes:
-      # "default.conf.template" - is to be able to pass environment variables to config (see container documentation)
       - ./${PROXY__SERVICE}:${APP_DIR}
-      - ${FILES__STORAGE}:${FILES__MOUNT_DIR}:ro
+      # proxy - config ("default.conf.template" see container documentation)
       - ./${PROXY__SERVICE}/config:${PROXY__CONFIG_DIR}
+      # proxy - init storage
+      - ${PROXY__STORAGE}:${APP_DIR}/${PROXY__STORAGE}
+      # proxy - storage
+      - ${PROXY__STORAGE}:${PROXY__STORAGE_MOUNT_DIR}
+      # files - storage
+      - ${FILES__STORAGE}:${FILES__STORAGE_MOUNT_DIR}:ro
     depends_on:
       - ${ADMIN__SERVICE}
       - ${SITE__SERVICE}
@@ -149,8 +155,11 @@ services:
         - APP_DIR=${APP_DIR}
     restart: ${CONTAINER_RESTART_MODE}
     volumes:
+      # init storage
       - ${FILES__STORAGE}:${APP_DIR}/${FILES__STORAGE}
 
 volumes:
   storage--files:
     name: ${APP_NAME}__${FILES__STORAGE}
+  storage--proxy:
+    name: ${APP_NAME}__${PROXY__STORAGE}
