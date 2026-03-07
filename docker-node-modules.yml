@@ -1,27 +1,27 @@
 services:
   #api
   service--api:
-    container_name: ${PROJECT_NAME}__${API__SERVICE}
+    container_name: ${APP_NAME}__${API__SERVICE}
     build: 
       context: ./${API__SERVICE}
       args:
-        - WORKDIR_BASE=${WORKDIR_BASE}
+        - APP_DIR=${APP_DIR}
     command: echo ${API__SERVICE}
 
   # site
   service--site:
-    container_name: ${PROJECT_NAME}__${SITE__SERVICE}
+    container_name: ${APP_NAME}__${SITE__SERVICE}
     build: 
       context: ./${SITE__SERVICE}
       args:
-        - WORKDIR_BASE=${WORKDIR_BASE}
+        - APP_DIR=${APP_DIR}
     command: echo ${SITE__SERVICE}
 
   # admin
   service--admin:
-    container_name: ${PROJECT_NAME}__${ADMIN__SERVICE}
+    container_name: ${APP_NAME}__${ADMIN__SERVICE}
     build: 
       context: ./${ADMIN__SERVICE}
       args:
-        - WORKDIR_BASE=${WORKDIR_BASE}
+        - APP_DIR=${APP_DIR}
     command: echo ${ADMIN__SERVICE}

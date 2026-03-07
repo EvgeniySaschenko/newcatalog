@@ -1,68 +1,68 @@
 services:
   # site
   service--site:
-    container_name: ${PROJECT_NAME}__${SITE__SERVICE}
+    container_name: ${APP_NAME}__${SITE__SERVICE}
     build: 
       context: ./${SITE__SERVICE}
       args:
-        - WORKDIR_BASE=${WORKDIR_BASE}
+        - APP_DIR=${APP_DIR}
     env_file:
-      - .env-${ENV_RUN}
+      - .env-${APP_ENV}
     command: ${SITE__COMAND}
     stdin_open: true
     tty: true
     volumes:
-      - ./${SITE__SERVICE}:${WORKDIR_BASE}
+      - ./${SITE__SERVICE}:${APP_DIR}
       # node_modules
-      - ./${SITE__SERVICE}/node_modules:${WORKDIR_BASE}/node_modules/
+      - ./${SITE__SERVICE}/node_modules:${APP_DIR}/node_modules/
     depends_on:
       - ${DB_TEMPORARY__SERVICE}
     restart: ${CONTAINER_RESTART_MODE}
 
   # admin
   service--admin:
-    container_name: ${PROJECT_NAME}__${ADMIN__SERVICE}
+    container_name: ${APP_NAME}__${ADMIN__SERVICE}
     build: 
       context: ./${ADMIN__SERVICE}
       args:
-        - WORKDIR_BASE=${WORKDIR_BASE}
+        - APP_DIR=${APP_DIR}
     env_file:
-      - .env-${ENV_RUN}
+      - .env-${APP_ENV}
     command: ${ADMIN__COMAND}
     stdin_open: true
     tty: true
     volumes: 
-      - ./${ADMIN__SERVICE}:${WORKDIR_BASE}
+      - ./${ADMIN__SERVICE}:${APP_DIR}
       # node_modules
-      - ./${ADMIN__SERVICE}/node_modules:${WORKDIR_BASE}/node_modules/
+      - ./${ADMIN__SERVICE}/node_modules:${APP_DIR}/node_modules/
     depends_on:
       - ${API__SERVICE}
     restart: ${CONTAINER_RESTART_MODE}
 
   #api
   service--api:
-    container_name: ${PROJECT_NAME}__${API__SERVICE}
+    container_name: ${APP_NAME}__${API__SERVICE}
     build: 
       context: ./${API__SERVICE}
       args:
-        - WORKDIR_BASE=${WORKDIR_BASE}
+        - APP_DIR=${APP_DIR}
     command: ${API__COMAND}
     env_file:
-      - .env-${ENV_RUN}
+      - .env-${APP_ENV}
       - .env-custom
     stdin_open: true
     tty: true
     volumes:
-      - ./${API__SERVICE}:${WORKDIR_BASE}
-      - ./${API__SERVICE}/node_modules:${WORKDIR_BASE}/node_modules/
+      - ./${API__SERVICE}:${APP_DIR}
+      - ./${API__SERVICE}/node_modules:${APP_DIR}/node_modules/
       # For parse function $t()
-      - ./${ADMIN__SERVICE}/src:${WORKDIR_BASE}/services/${ADMIN__SERVICE}
-      - ./${SITE__SERVICE}:${WORKDIR_BASE}/services/${SITE__SERVICE}
+      - ./${ADMIN__SERVICE}/src:${APP_DIR}/services/${ADMIN__SERVICE}
+      - ./${SITE__SERVICE}:${APP_DIR}/services/${SITE__SERVICE}
       # db main
-      - ./${DB_MAIN__SERVICE}:${WORKDIR_BASE}/services/${DB_MAIN__SERVICE}
+      - ./${DB_MAIN__SERVICE}:${APP_DIR}/services/${DB_MAIN__SERVICE}
       # proxy
-      - ./${PROXY__SERVICE}:${WORKDIR_BASE}/services/${PROXY__SERVICE}
-      - ${FILES__STORAGE_NAME}:${WORKDIR_BASE}/${FILES__STORAGE_PERMANENT}
+      - ./${PROXY__SERVICE}:${APP_DIR}/services/${PROXY__SERVICE}
+      - ${FILES__STORAGE_NAME}:${APP_DIR}/${FILES__STORAGE_PERMANENT}
     depends_on:
       - ${DB_MAIN__SERVICE}
       - ${DB_TEMPORARY__SERVICE}
@@ -70,15 +70,15 @@ services:
 
   # db - posgres
   service--db-main:
-    container_name: ${PROJECT_NAME}__${DB_MAIN__SERVICE}
+    container_name: ${APP_NAME}__${DB_MAIN__SERVICE}
     build: 
       context: ./${DB_MAIN__SERVICE}
       args:
-        - WORKDIR_BASE=${WORKDIR_BASE}
+        - APP_DIR=${APP_DIR}
     environment:
       POSTGRES_DB: ${DB_MAIN__NAME_DB}
       POSTGRES_PASSWORD: ${DB_MAIN__PASSWORD_DB}
-      WORKDIR_BASE: ${WORKDIR_BASE}
+      APP_DIR: ${APP_DIR}
       DB_MAIN__NAME_DB: ${DB_MAIN__NAME_DB}
       DB_MAIN__USER_DB: ${DB_MAIN__USER_DB}
       DB_MAIN__PASSWORD_DB: ${DB_MAIN__PASSWORD_DB}
@@ -96,13 +96,13 @@ services:
       # "docker-entrypoint-initdb.d" - creates a table in the database and performs some actions 1 time during initialization (see container documentation)
       - ./${DB_MAIN__SERVICE}/init:/docker-entrypoint-initdb.d:ro
        # Creates a backup
-      - ./${DB_MAIN__SERVICE}/server.js:${WORKDIR_BASE}/server.js:ro
-      - ./${DB_MAIN__SERVICE}/${DB_MAIN__BACKUP_DIR}:${WORKDIR_BASE}/${DB_MAIN__BACKUP_DIR}
+      - ./${DB_MAIN__SERVICE}/server.js:${APP_DIR}/server.js:ro
+      - ./${DB_MAIN__SERVICE}/${DB_MAIN__BACKUP_DIR}:${APP_DIR}/${DB_MAIN__BACKUP_DIR}
     restart: ${CONTAINER_RESTART_MODE}
 
   # db - redis
   service--db-temporary:
-    container_name: ${PROJECT_NAME}__${DB_TEMPORARY__SERVICE}
+    container_name: ${APP_NAME}__${DB_TEMPORARY__SERVICE}
     build: 
       context: ./${DB_TEMPORARY__SERVICE}
     ports:
@@ -111,21 +111,21 @@ services:
 
   # proxy - nginx
   service--proxy:
-    container_name: ${PROJECT_NAME}__${PROXY__SERVICE}
+    container_name: ${APP_NAME}__${PROXY__SERVICE}
     build:
       context: ./${PROXY__SERVICE}
       args:
-        - WORKDIR_BASE=${WORKDIR_BASE}
+        - APP_DIR=${APP_DIR}
     env_file:
-      - .env-${ENV_RUN}
+      - .env-${APP_ENV}
       - .env-custom
     ports:
       - ${PROXY__PORT_443}:${PROXY__PORT_443}
       - ${PROXY__PORT_80}:${PROXY__PORT_80}
     volumes:
       # "default.conf.template" - is to be able to pass environment variables to config (see container documentation)
-      - ./${PROXY__SERVICE}:${WORKDIR_BASE}
-      - ${FILES__STORAGE_NAME}:${WORKDIR_BASE}/${FILES__STORAGE_PERMANENT}:ro
+      - ./${PROXY__SERVICE}:${APP_DIR}
+      - ${FILES__STORAGE_NAME}:${APP_DIR}/${FILES__STORAGE_PERMANENT}:ro
       - ./${PROXY__SERVICE}/config:${PROXY__CONFIG_DIR}
     depends_on:
       - ${ADMIN__SERVICE}
@@ -139,18 +139,18 @@ services:
   # Note: Files from the "service--files" folder are only added to the "${FILES__STORAGE_NAME}" volume during initialization; this is done for security reasons.
   service--files:
     env_file:
-      - .env-${ENV_RUN}
+      - .env-${APP_ENV}
       - .env-custom
-    container_name: ${PROJECT_NAME}__${FILES__SERVICE}
+    container_name: ${APP_NAME}__${FILES__SERVICE}
     build: 
       context: ./${FILES__SERVICE}
       args:
-        - WORKDIR_BASE=${WORKDIR_BASE}
+        - APP_DIR=${APP_DIR}
     restart: ${CONTAINER_RESTART_MODE}
     volumes:
-      - ${FILES__STORAGE_NAME}:${WORKDIR_BASE}/${FILES__STORAGE_PERMANENT}
-      # - ./${FILES__SERVICE}:${WORKDIR_BASE}/${FILES__STORAGE_PERMANENT}
+      - ${FILES__STORAGE_NAME}:${APP_DIR}/${FILES__STORAGE_PERMANENT}
+      # - ./${FILES__SERVICE}:${APP_DIR}/${FILES__STORAGE_PERMANENT}
 
 volumes:
   storage--files:
-    name: ${PROJECT_NAME}__${FILES__STORAGE_NAME}
+    name: ${APP_NAME}__${FILES__STORAGE_NAME}

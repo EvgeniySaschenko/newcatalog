@@ -22,7 +22,7 @@ function funDeleteDirLocal {
 # $1 - sevice dir
 # $2 - target dir
 function funCopyDirFromContainer {
-  local result=$(docker cp -a "${PROJECT_NAME}__$1:${WORKDIR_BASE}/$2" "./$1") && local isCopy=true
+  local result=$(docker cp -a "${APP_NAME}__$1:${APP_DIR}/$2" "./$1") && local isCopy=true
   echo "$result"
   if [ "$isCopy" != true ]; then
     exit
@@ -78,7 +78,7 @@ function funBuild {
 
 # run containers
 function funRunContainers {
-  docker compose --env-file ./.env-${ENV_RUN} ${mode}
+  docker compose --env-file ./.env-${APP_ENV} ${mode}
 }
 
 ####################################################################
@@ -106,5 +106,5 @@ fi
 # Run a script that creates a database backup 
 if [ $mode == "start" ] || [ $mode == "init" ]; then
   # docker exec -it newcatalog__service--db-main node server.js
-  docker exec -itd ${PROJECT_NAME}__${DB_MAIN__SERVICE} node server.js
+  docker exec -itd ${APP_NAME}__${DB_MAIN__SERVICE} node server.js
 fi
