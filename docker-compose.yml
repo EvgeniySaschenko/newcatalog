@@ -62,7 +62,8 @@ services:
       - ./${DB_MAIN__SERVICE}:${APP_DIR}/services/${DB_MAIN__SERVICE}
       # proxy
       - ./${PROXY__SERVICE}:${APP_DIR}/services/${PROXY__SERVICE}
-      - ${FILES__STORAGE_NAME}:${APP_DIR}/${FILES__STORAGE_PERMANENT}
+      # files
+      - ${FILES__STORAGE}:${FILES__MOUNT_DIR}
     depends_on:
       - ${DB_MAIN__SERVICE}
       - ${DB_TEMPORARY__SERVICE}
@@ -125,7 +126,7 @@ services:
     volumes:
       # "default.conf.template" - is to be able to pass environment variables to config (see container documentation)
       - ./${PROXY__SERVICE}:${APP_DIR}
-      - ${FILES__STORAGE_NAME}:${APP_DIR}/${FILES__STORAGE_PERMANENT}:ro
+      - ${FILES__STORAGE}:${FILES__MOUNT_DIR}:ro
       - ./${PROXY__SERVICE}/config:${PROXY__CONFIG_DIR}
     depends_on:
       - ${ADMIN__SERVICE}
@@ -135,8 +136,8 @@ services:
     restart: ${CONTAINER_RESTART_MODE}
 
   # files
-  # When initializing a project, the service adds files from a folder named "service--files" (the folder is located on the host) to a volume named "${FILES__STORAGE_NAME}".
-  # Note: Files from the "service--files" folder are only added to the "${FILES__STORAGE_NAME}" volume during initialization; this is done for security reasons.
+  # When initializing a project, the service adds files from a folder named "service--files" (the folder is located on the host) to a volume named "${FILES__STORAGE}".
+  # Note: Files from the "service--files" folder are only added to the "${FILES__STORAGE}" volume during initialization; this is done for security reasons.
   service--files:
     env_file:
       - .env-${APP_ENV}
@@ -148,9 +149,8 @@ services:
         - APP_DIR=${APP_DIR}
     restart: ${CONTAINER_RESTART_MODE}
     volumes:
-      - ${FILES__STORAGE_NAME}:${APP_DIR}/${FILES__STORAGE_PERMANENT}
-      # - ./${FILES__SERVICE}:${APP_DIR}/${FILES__STORAGE_PERMANENT}
+      - ${FILES__STORAGE}:${APP_DIR}/${FILES__STORAGE}
 
 volumes:
   storage--files:
-    name: ${APP_NAME}__${FILES__STORAGE_NAME}
+    name: ${APP_NAME}__${FILES__STORAGE}
