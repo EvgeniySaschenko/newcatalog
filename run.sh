@@ -3,6 +3,27 @@ mode=$2
 
 source ./.env-$env
 
+env_files="--env-file ${APP_ENV_FILE} --env-file ${APP_ENV_SECRET_FILE} --env-file ${APP_ENV_CUSTOM_FILE}"
+
+# Generate a random string and write it to the .env file
+function generateRandomString() {
+  local length=${1:-32}
+  local chars=${2:-'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'}
+  local str=''
+  for ((i = 0; i < length; ++i)); do
+      str+=${chars:RANDOM%${#chars}:1}
+  done
+  echo "$str"
+}
+
+# Create file env secret
+function createFileEnvSecret() {
+  local random_number=$((RANDOM % 16 + 1))
+  echo "APP_SECRET_KEY='$(generateRandomString 32)$(generateRandomString $random_number)'" > $APP_ENV_SECRET_FILE
+}
+
+###########################################################################
+
 # delete local dir
 # $1 - sevice dir
 # $2 - target dir
@@ -35,7 +56,7 @@ function funInit {
   echo '--> Init - start'
 
   # 1. Containers are created to receive node_modules
-  docker compose -f docker-node-modules.yml --env-file ./.env-${env} create
+  docker compose -f docker-node-modules.yml ${env_files} create
 
   # 2. node_modules are copied from the docker to the local computer, this is necessary for "EsLint", TypeScript, etc. to work.
 
@@ -51,14 +72,18 @@ function funInit {
   funDeleteDirLocal $SITE__SERVICE "node_modules"
   funCopyDirFromContainer $SITE__SERVICE "node_modules"
 
+  # BACKUP
+  funDeleteDirLocal $BACKUP__SERVICE "node_modules"
+  funCopyDirFromContainer $BACKUP__SERVICE "node_modules"
+
   # 3. Other containers are created.
   if [ $env == "prod" ]; then
-    docker compose -f docker-compose.yml --env-file ./.env-${env} create
-    docker compose -f docker-compose.yml --env-file ./.env-${env} start
+    docker compose -f docker-compose.yml ${env_files}create
+    docker compose -f docker-compose.yml ${env_files} start
   fi
 
   if [ $env == "dev" ]; then
-    docker compose -f docker-compose.yml --env-file ./.env-${env} up
+    docker compose -f docker-compose.yml ${env_files} up
   fi
 }
 
@@ -68,20 +93,27 @@ function funBuild {
   funDeleteDirLocal $ADMIN__SERVICE "dist"
   funDeleteDirLocal $SITE__SERVICE ".output"
 
-  docker compose -f docker-build.yml --env-file ./.env-${env} up
+  docker compose -f docker-build.yml ${env_files} up
   # ADMIN
   funCopyDirFromContainer $ADMIN__SERVICE "dist"
   # SITE
   funCopyDirFromContainer $SITE__SERVICE ".output"
-  docker compose -f docker-build.yml --env-file ./.env-${env} stop
+  docker compose -f docker-build.yml ${env_files} stop
 }
 
 # run containers
 function funRunContainers {
-  docker compose --env-file ./.env-${APP_ENV} ${mode}
+  docker compose ${env_files} ${mode}
 }
 
 ####################################################################
+
+# To authorize containers via HTTP requests, a random secret key is generated in the Docker internal network. 
+# The key file is stored in the tmp folder because the key must be available when the container restarts and must not be copied to the repository.
+if [ ! -f "$APP_ENV_SECRET_FILE" ]; then
+  generateRandomString
+  createFileEnvSecret
+fi
 
 # Init
 if [ $mode == "init" ]; then
@@ -95,16 +127,10 @@ fi
 
 # Recreate containers to pass "build files"
 if [ $mode == "start" ]; then
-  docker compose -f docker-compose.yml --env-file ./.env-${env} create
+  docker compose -f docker-compose.yml ${env_files} create
 fi
 
 # Run containers: up / start / stop
 if [ $mode == "up" ] || [ $mode == "start" ] || [ $mode == "stop" ]; then
   funRunContainers
-fi
-
-# Run a script that creates a database backup 
-if [ $mode == "start" ] || [ $mode == "init" ]; then
-  # docker exec -it newcatalog__service--db-main node server.js
-  docker exec -itd ${APP_NAME}__${DB_MAIN__SERVICE} node server.js
 fi
