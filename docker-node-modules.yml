@@ -25,3 +25,12 @@ services:
       args:
         - APP_DIR=${APP_DIR}
     command: echo ${ADMIN__SERVICE}
+
+  # backup
+  service--backup:
+    container_name: ${APP_NAME}__${BACKUP__SERVICE}
+    build: 
+      context: ./${BACKUP__SERVICE}
+      args:
+        - APP_DIR=${APP_DIR}
+    command: echo ${BACKUP__SERVICE}

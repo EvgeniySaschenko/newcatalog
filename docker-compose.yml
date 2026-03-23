@@ -7,14 +7,16 @@ services:
       args:
         - APP_DIR=${APP_DIR}
     env_file:
-      - .env-${APP_ENV}
+      - ${APP_ENV_FILE}
+      - ${APP_ENV_SECRET_FILE}
+      - ${APP_ENV_CUSTOM_FILE}
     command: ${SITE__COMAND}
     stdin_open: true
     tty: true
     volumes:
       - ./${SITE__SERVICE}:${APP_DIR}
       # node_modules
-      - ./${SITE__SERVICE}/node_modules:${APP_DIR}/node_modules/
+      - ./${SITE__SERVICE}/node_modules:${APP_DIR}/node_modules
     depends_on:
       - ${DB_TEMPORARY__SERVICE}
     restart: ${CONTAINER_RESTART_MODE}
@@ -27,14 +29,16 @@ services:
       args:
         - APP_DIR=${APP_DIR}
     env_file:
-      - .env-${APP_ENV}
+      - ${APP_ENV_FILE}
+      - ${APP_ENV_SECRET_FILE}
+      - ${APP_ENV_CUSTOM_FILE}
     command: ${ADMIN__COMAND}
     stdin_open: true
     tty: true
     volumes: 
       - ./${ADMIN__SERVICE}:${APP_DIR}
       # node_modules
-      - ./${ADMIN__SERVICE}/node_modules:${APP_DIR}/node_modules/
+      - ./${ADMIN__SERVICE}/node_modules:${APP_DIR}/node_modules
     depends_on:
       - ${API__SERVICE}
     restart: ${CONTAINER_RESTART_MODE}
@@ -48,18 +52,17 @@ services:
         - APP_DIR=${APP_DIR}
     command: ${API__COMAND}
     env_file:
-      - .env-${APP_ENV}
-      - .env-custom
+      - ${APP_ENV_FILE}
+      - ${APP_ENV_SECRET_FILE}
+      - ${APP_ENV_CUSTOM_FILE}
     stdin_open: true
     tty: true
     volumes:
       - ./${API__SERVICE}:${APP_DIR}
-      - ./${API__SERVICE}/node_modules:${APP_DIR}/node_modules/
+      - ./${API__SERVICE}/node_modules:${APP_DIR}/node_modules
       # For parse function $t()
       - ./${ADMIN__SERVICE}/src:${APP_DIR}/services/${ADMIN__SERVICE}
       - ./${SITE__SERVICE}:${APP_DIR}/services/${SITE__SERVICE}
-      # db main
-      - ./${DB_MAIN__SERVICE}:${APP_DIR}/services/${DB_MAIN__SERVICE}
       # proxy - storage
       - ${PROXY__STORAGE}:${PROXY__STORAGE_MOUNT_DIR}
       # files - storage
@@ -80,16 +83,6 @@ services:
     environment:
       POSTGRES_DB: ${DB_MAIN__NAME_DB}
       POSTGRES_PASSWORD: ${DB_MAIN__PASSWORD_DB}
-      APP_DIR: ${APP_DIR}
-      DB_MAIN__NAME_DB: ${DB_MAIN__NAME_DB}
-      DB_MAIN__USER_DB: ${DB_MAIN__USER_DB}
-      DB_MAIN__PASSWORD_DB: ${DB_MAIN__PASSWORD_DB}
-      DB_MAIN__PORT_INTERNAL: ${DB_MAIN__PORT_INTERNAL}
-      DB_MAIN__SERVICE: ${DB_MAIN__SERVICE}
-      DB_MAIN__BACKUP_PATHS: ${DB_MAIN__BACKUP_PATHS}
-      DB_MAIN__BACKUP_REPORT_PATH: ${DB_MAIN__BACKUP_REPORT_PATH}
-      DB_MAIN__BACKUP_MESSAGING_FILE: ${DB_MAIN__BACKUP_MESSAGING_FILE}
-      API__SERVICE: ${API__SERVICE}
     ports:
       - ${DB_MAIN__PORT_EXTERNAL}:${DB_MAIN__PORT_INTERNAL}
     stdin_open: true
@@ -97,9 +90,6 @@ services:
     volumes:
       # "docker-entrypoint-initdb.d" - creates a table in the database and performs some actions 1 time during initialization (see container documentation)
       - ./${DB_MAIN__SERVICE}/init:/docker-entrypoint-initdb.d:ro
-       # Creates a backup
-      - ./${DB_MAIN__SERVICE}/server.js:${APP_DIR}/server.js:ro
-      - ./${DB_MAIN__SERVICE}/${DB_MAIN__BACKUP_DIR}:${APP_DIR}/${DB_MAIN__BACKUP_DIR}
     restart: ${CONTAINER_RESTART_MODE}
 
   # db - redis
@@ -119,8 +109,9 @@ services:
       args:
         - APP_DIR=${APP_DIR}
     env_file:
-      - .env-${APP_ENV}
-      - .env-custom
+      - ${APP_ENV_FILE}
+      - ${APP_ENV_SECRET_FILE}
+      - ${APP_ENV_CUSTOM_FILE}
     ports:
       - ${PROXY__PORT_443}:${PROXY__PORT_443}
       - ${PROXY__PORT_80}:${PROXY__PORT_80}
@@ -146,8 +137,9 @@ services:
   # Note: Files from the "service--files" folder are only added to the "${FILES__STORAGE}" volume during initialization; this is done for security reasons.
   service--files:
     env_file:
-      - .env-${APP_ENV}
-      - .env-custom
+      - ${APP_ENV_FILE}
+      - ${APP_ENV_SECRET_FILE}
+      - ${APP_ENV_CUSTOM_FILE}
     container_name: ${APP_NAME}__${FILES__SERVICE}
     build: 
       context: ./${FILES__SERVICE}
@@ -155,8 +147,38 @@ services:
         - APP_DIR=${APP_DIR}
     restart: ${CONTAINER_RESTART_MODE}
     volumes:
-      # init storage
+      # files - init storage
       - ${FILES__STORAGE}:${APP_DIR}/${FILES__STORAGE}
+
+
+  # backup - db | files
+  service--backup:
+    container_name: ${APP_NAME}__${BACKUP__SERVICE}
+    build: 
+      context: ./${BACKUP__SERVICE}
+      args:
+        - APP_DIR=${APP_DIR}
+    environment:
+      POSTGRES_PASSWORD: "default_password"
+      APP_DIR: ${APP_DIR}
+      APP_SECRET_KEY: ${APP_SECRET_KEY}
+      DB_MAIN__NAME_DB: ${DB_MAIN__NAME_DB}
+      DB_MAIN__USER_DB: ${DB_MAIN__USER_DB}
+      DB_MAIN__PASSWORD_DB: ${DB_MAIN__PASSWORD_DB}
+      DB_MAIN__PORT_INTERNAL: ${DB_MAIN__PORT_INTERNAL}
+      DB_MAIN__SERVICE: ${DB_MAIN__SERVICE}
+      FILES__STORAGE: ${FILES__STORAGE}
+      FILES__STORAGE_MOUNT_DIR: ${FILES__STORAGE_MOUNT_DIR}
+      BACKUP__SERVER_PORT: ${BACKUP__SERVER_PORT}
+    command: ${BACKUP__COMAND}
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./${BACKUP__SERVICE}:${APP_DIR}
+      - ./${BACKUP__SERVICE}/node_modules:${APP_DIR}/node_modules
+      # files - storage
+      - ${FILES__STORAGE}:${FILES__STORAGE_MOUNT_DIR}:ro
+    restart: ${CONTAINER_RESTART_MODE}
 
 volumes:
   storage--files:
