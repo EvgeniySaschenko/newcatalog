@@ -177,7 +177,7 @@ services:
       - ./${BACKUP__SERVICE}:${APP_DIR}
       - ./${BACKUP__SERVICE}/node_modules:${APP_DIR}/node_modules
       # files - storage
-      - ${FILES__STORAGE}:${FILES__STORAGE_MOUNT_DIR}:ro
+      - ${FILES__STORAGE}:${FILES__STORAGE_MOUNT_DIR}
     restart: ${CONTAINER_RESTART_MODE}
 
 volumes:
