@@ -78,7 +78,7 @@ function funInit {
 
   # 3. Other containers are created.
   if [ $env == "prod" ]; then
-    docker compose -f docker-compose.yml ${env_files}create
+    docker compose -f docker-compose.yml ${env_files} create
     docker compose -f docker-compose.yml ${env_files} start
   fi
 
